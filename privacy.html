@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de Privacidad — Skool Suite Extension</title>
+
+<script src="assets/theme-init.js"></script>
+
+<link rel="icon" type="image/x-icon" href="media/favicon.ico">
+<link rel="shortcut icon" href="media/favicon.ico">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://db.onlinewebfonts.com/c/8cb707a9b8a73f8a7403336b861c3074?family=BubbledotICG-FinePos" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/site.css">
+
+<style>
+  :root {
+    --bg: #000000;
+    --text: #ffffff;
+    --text-muted: rgba(255, 255, 255, 0.6);
+    --text-faint: rgba(255, 255, 255, 0.4);
+    --border: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.18);
+    --surface: rgba(255, 255, 255, 0.03);
+    --surface-2: rgba(255, 255, 255, 0.05);
+    --surface-3: rgba(255, 255, 255, 0.08);
+    --accent-ink: #f97316;
+    --accent-soft: rgba(234, 88, 12, 0.14);
+    --good: #22c55e;
+    --good-soft: rgba(34, 197, 94, 0.14);
+    --info: #3b82f6;
+    --info-soft: rgba(59, 130, 246, 0.14);
+    --shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    --radius: 16px;
+    --content-width: 700px;
+    --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  :root[data-theme="light"] {
+    --bg: #FBF8F5;
+    --text: #201A16;
+    --text-muted: rgba(32, 26, 22, 0.62);
+    --text-faint: rgba(32, 26, 22, 0.42);
+    --border: rgba(32, 26, 22, 0.1);
+    --border-strong: rgba(32, 26, 22, 0.2);
+    --surface: #FFFFFF;
+    --surface-2: #F1ECE6;
+    --surface-3: #E9E1D8;
+    --shadow: 0 16px 40px rgba(32, 26, 22, 0.12);
+  }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  body { overflow-x: hidden; }
+  ::selection { background: var(--accent-soft); color: var(--accent-ink); }
+
+  a { color: var(--accent-ink); text-decoration-color: var(--border-strong); text-underline-offset: 2px; }
+  a:hover { text-decoration-color: var(--accent-ink); }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  code { font-family: var(--font-mono); }
+  strong { font-weight: 600; }
+  h1, h2, h3 { text-wrap: balance; letter-spacing: -0.01em; }
+
+  .bg-glow {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(680px 420px at 18% -6%, rgba(234, 88, 12, 0.16), transparent 60%),
+      radial-gradient(520px 360px at 100% 0%, rgba(234, 88, 12, 0.08), transparent 55%);
+  }
+
+  /* ---------- Shell layout ---------- */
+  .shell {
+    position: relative;
+    z-index: 1;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: clamp(112px, 16vh, 150px) 32px 96px;
+    display: grid;
+    grid-template-columns: 220px minmax(0, var(--content-width));
+    gap: 64px;
+    justify-content: center;
+  }
+  @media (max-width: 880px) {
+    .shell { grid-template-columns: 1fr; gap: 32px; padding: clamp(100px, 16vh, 130px) 20px 64px; }
+  }
+
+  /* ---------- Doc header ---------- */
+  header.doc-head {
+    grid-column: 1 / -1;
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    background: var(--accent-soft);
+    border-radius: 999px;
+    padding: 6px 14px 6px 11px;
+    margin-bottom: 22px;
+  }
+  .eyebrow svg { width: 13px; height: 13px; flex-shrink: 0; }
+  h1.doc-title {
+    font-family: var(--font-caption);
+    font-weight: 700;
+    font-size: clamp(2.1rem, 5vw, 3.1rem);
+    line-height: 1.15;
+    letter-spacing: 0.01em;
+    margin: 0 0 16px;
+  }
+  .doc-sub { color: var(--text-muted); font-size: 1.05rem; max-width: 54ch; margin: 0 0 26px; }
+  .meta-row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .meta-chip {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--text-muted);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .meta-chip b { color: var(--text); font-weight: 600; }
+
+  /* ---------- TOC rail ---------- */
+  nav.toc { position: sticky; top: 112px; align-self: start; padding-top: 4px; }
+  nav.toc .toc-label {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 14px;
+  }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+  nav.toc a {
+    display: block;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    padding: 7px 0 7px 14px;
+    border-left: 2px solid var(--border);
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  nav.toc a:hover { color: #fff; border-color: var(--border-strong); }
+  nav.toc a.active { color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
+  @media (max-width: 880px) {
+    nav.toc { position: static; margin-bottom: 8px; }
+    nav.toc ol { flex-direction: row; flex-wrap: wrap; gap: 8px; }
+    nav.toc a { border-left: none; border: 1px solid var(--border); border-radius: 999px; padding: 6px 13px; }
+    nav.toc a.active { background: var(--accent-soft); border-color: var(--accent); }
+  }
+
+  /* ---------- Main content ---------- */
+  main { min-width: 0; }
+  section { padding-top: 52px; scroll-margin-top: 100px; }
+  section:first-of-type { padding-top: 44px; }
+  h2 { font-family: var(--font-caption); font-weight: 700; font-size: clamp(1.5rem, 3vw, 1.85rem); display: flex; align-items: baseline; gap: 12px; margin: 0 0 20px; letter-spacing: 0.01em; }
+  h2 .num { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-faint); font-weight: 500; }
+  h3 { font-family: var(--font-sans); font-weight: 600; font-size: 1.05rem; margin: 30px 0 12px; color: #fff; }
+  p { margin: 0 0 16px; max-width: 66ch; color: var(--text-muted); }
+  ul.plain { margin: 0 0 16px; padding-left: 1.2em; }
+  ul.plain li { margin-bottom: 10px; max-width: 62ch; color: var(--text-muted); }
+  ul.plain strong, p strong { color: #fff; }
+
+  /* summary callout */
+  .summary-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 26px 28px;
+    margin-bottom: 8px;
+    transition: border-color 0.3s ease;
+  }
+  .summary-card:hover { border-color: rgba(234, 88, 12, 0.3); }
+  .summary-card ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+  .summary-card li { display: flex; gap: 14px; align-items: flex-start; max-width: none; }
+  .summary-card .ico {
+    flex-shrink: 0;
+    width: 24px; height: 24px;
+    border-radius: 7px;
+    background: var(--accent-soft);
+    color: var(--accent-ink);
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 1px;
+  }
+  .summary-card .ico svg { width: 13px; height: 13px; }
+  .summary-card .txt strong { display: block; font-size: 0.98rem; color: #fff; }
+  .summary-card .txt span { color: var(--text-muted); font-size: 0.92rem; }
+
+  /* tables */
+  .table-wrap { overflow-x: auto; margin: 0 0 20px; border: 1px solid var(--border); border-radius: var(--radius); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.92rem; min-width: 480px; }
+  thead th {
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    font-weight: 500;
+    background: var(--surface-2);
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  tbody td { padding: 13px 16px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text-muted); }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody td:first-child { color: #fff; }
+  tbody tr:nth-child(even) { background: var(--surface); }
+
+  .chip {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    background: var(--pill-dark);
+    color: var(--sign-in-text);
+    border-radius: 6px;
+    padding: 3px 8px;
+    white-space: nowrap;
+  }
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    border-radius: 999px;
+    padding: 3px 10px;
+  }
+  .tag-required { background: var(--accent-soft); color: var(--accent-ink); }
+  .tag-optional { background: var(--surface-3); color: var(--text-muted); }
+  .tag-local { background: var(--good-soft); color: var(--good); }
+  .tag-sync { background: var(--info-soft); color: var(--info); }
+
+  /* endpoint cards */
+  .endpoint {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    margin-bottom: 16px;
+    transition: border-color 0.3s ease;
+  }
+  .endpoint:hover { border-color: rgba(234, 88, 12, 0.25); }
+  .endpoint .url {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: #fff;
+    margin-bottom: 10px;
+    word-break: break-all;
+  }
+  .endpoint p { margin-bottom: 8px; font-size: 0.94rem; }
+  .endpoint p:last-child { margin-bottom: 0; }
+
+  /* not-collected list */
+  .not-list { display: grid; gap: 11px; margin: 0 0 16px; padding: 0; list-style: none; }
+  .not-list li { display: flex; gap: 12px; align-items: flex-start; font-size: 0.95rem; color: var(--text-muted); max-width: 62ch; }
+  .not-list .ico {
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    border-radius: 7px;
+    background: var(--surface-3);
+    color: var(--text-faint);
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 1px;
+  }
+  .not-list svg { width: 12px; height: 12px; }
+
+  hr.div { border: none; border-top: 1px solid var(--border); margin: 52px 0 0; }
+
+  footer.doc-foot {
+    max-width: var(--content-width);
+    color: var(--text-faint);
+    font-size: 0.85rem;
+    padding-top: 28px;
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  }
+
+  .contact-box {
+    border: 1px dashed var(--border-strong);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    color: var(--text-muted);
+    font-size: 0.94rem;
+    background: var(--surface);
+  }
+
+  /* bottom CTA */
+  .cta-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 24px;
+    border-radius: 14px;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 14.5px;
+    text-decoration: none;
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    transition: all 0.3s ease;
+    margin-top: 8px;
+  }
+  .cta-home svg { width: 18px; height: 18px; }
+  .cta-home:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo-btn" aria-label="Skool Suite Extension — Inicio">
+      <picture>
+        <source srcset="media/logo.webp" type="image/webp">
+        <img src="media/logo.jpg" alt="Skool Suite Extension" width="52" height="52">
+      </picture>
+    </a>
+
+    <nav class="nav-links" aria-label="Main">
+      <a href="index.html#home" data-i18n="nav.home">Inicio</a>
+      <a href="index.html#features" data-i18n="nav.features">Características</a>
+      <a href="index.html#testimonials" data-i18n="nav.testimonials">Testimonios</a>
+      <a href="index.html#faq" data-i18n="nav.faq">FAQ</a>
+    </nav>
+
+    <div class="header-controls">
+    <button type="button" class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle light/dark theme">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+
+    <div class="lang-switch" id="langSwitchDesktop">
+      <button type="button" class="lang-current" aria-haspopup="listbox" aria-expanded="false" aria-label="Language selector">
+        <img class="lang-flag" loading="lazy" src="https://flagcdn.com/24x18/us.png" alt="">
+        <span class="lang-current-label">EN</span>
+        <svg class="lang-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <ul class="lang-dropdown" role="listbox">
+        <li class="lang-option" role="option" data-lang="en"><img class="lang-flag" loading="lazy" src="https://flagcdn.com/24x18/us.png" alt=""><span class="lang-code">US</span><span>English</span></li>
+        <li class="lang-option" role="option" data-lang="es"><img class="lang-flag" loading="lazy" src="https://flagcdn.com/24x18/es.png" alt=""><span class="lang-code">ES</span><span>Español</span></li>
+        <li class="lang-option" role="option" data-lang="de"><img class="lang-flag" loading="lazy" src="https://flagcdn.com/24x18/de.png" alt=""><span class="lang-code">DE</span><span>Deutsch</span></li>
+        <li class="lang-option" role="option" data-lang="fr"><img class="lang-flag" loading="lazy" src="https://flagcdn.com/24x18/fr.png" alt=""><span class="lang-code">FR</span><span>Français</span></li>
+        <li class="lang-option" role="option" data-lang="pt"><img class="lang-flag" loading="lazy" src="https://flagcdn.com/24x18/br.png" alt=""><span class="lang-code">BR</span><span>Português</span></li>
+        <li class="lang-option" role="option" data-lang="zh"><img class="lang-flag" loading="lazy" src="https://flagcdn.com/24x18/tw.png" alt=""><span class="lang-code">TW</span><span>繁體中文</span></li>
+        <li class="lang-option" role="option" data-lang="it"><img class="lang-flag" loading="lazy" src="https://flagcdn.com/24x18/it.png" alt=""><span class="lang-code">IT</span><span>Italiano</span></li>
+        <li class="lang-option" role="option" data-lang="vi"><img class="lang-flag" loading="lazy" src="https://flagcdn.com/24x18/vn.png" alt=""><span class="lang-code">VN</span><span>Tiếng Việt</span></li>
+        <li class="lang-option" role="option" data-lang="tr"><img class="lang-flag" loading="lazy" src="https://flagcdn.com/24x18/tr.png" alt=""><span class="lang-code">TR</span><span>Türkçe</span></li>
+        <li class="lang-option" role="option" data-lang="nl"><img class="lang-flag" loading="lazy" src="https://flagcdn.com/24x18/nl.png" alt=""><span class="lang-code">NL</span><span>Nederlands</span></li>
+        <li class="lang-option" role="option" data-lang="ja"><img class="lang-flag" loading="lazy" src="https://flagcdn.com/24x18/jp.png" alt=""><span class="lang-code">JP</span><span>日本語</span></li>
+      </ul>
+    </div>
+    </div>
+
+    <button class="burger" id="burgerBtn" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="menu-overlay" id="menuOverlay"></div>
+<div class="menu-sheet" id="menuSheet" hidden>
+  <a href="index.html#home" data-i18n="nav.home">Inicio</a>
+  <a href="index.html#features" data-i18n="nav.features">Características</a>
+  <a href="index.html#testimonials" data-i18n="nav.testimonials">Testimonios</a>
+  <a href="index.html#faq" data-i18n="nav.faq">FAQ</a>
+  <div class="lang-switch lang-switch--mobile" id="langSwitchMobile">
+    <button type="button" class="lang-current" aria-haspopup="listbox" aria-expanded="false" aria-label="Language selector">
+      <img class="lang-flag" loading="lazy" src="https://flagcdn.com/24x18/us.png" alt="">
+      <span class="lang-current-label">English</span>
+      <svg class="lang-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <ul class="lang-dropdown" role="listbox">
+      <li class="lang-option" role="option" data-lang="en"><img class="lang-flag" loading="lazy" src="https://flagcdn.com/24x18/us.png" alt=""><span class="lang-code">US</span><span>English</span></li>
+      <li class="lang-option" role="option" data-lang="es"><img class="lang-flag" loading="lazy" src="https://flagcdn.com/24x18/es.png" alt=""><span class="lang-code">ES</span><span>Español</span></li>
+      <li class="lang-option" role="option" data-lang="de"><img class="lang-flag" loading="lazy" src="https://flagcdn.com/24x18/de.png" alt=""><span class="lang-code">DE</span><span>Deutsch</span></li>
+      <li class="lang-option" role="option" data-lang="fr"><img class="lang-flag" loading="lazy" src="https://flagcdn.com/24x18/fr.png" alt=""><span class="lang-code">FR</span><span>Français</span></li>
+      <li class="lang-option" role="option" data-lang="pt"><img class="lang-flag" loading="lazy" src="https://flagcdn.com/24x18/br.png" alt=""><span class="lang-code">BR</span><span>Português</span></li>
+      <li class="lang-option" role="option" data-lang="zh"><img class="lang-flag" loading="lazy" src="https://flagcdn.com/24x18/tw.png" alt=""><span class="lang-code">TW</span><span>繁體中文</span></li>
+      <li class="lang-option" role="option" data-lang="it"><img class="lang-flag" loading="lazy" src="https://flagcdn.com/24x18/it.png" alt=""><span class="lang-code">IT</span><span>Italiano</span></li>
+      <li class="lang-option" role="option" data-lang="vi"><img class="lang-flag" loading="lazy" src="https://flagcdn.com/24x18/vn.png" alt=""><span class="lang-code">VN</span><span>Tiếng Việt</span></li>
+      <li class="lang-option" role="option" data-lang="tr"><img class="lang-flag" loading="lazy" src="https://flagcdn.com/24x18/tr.png" alt=""><span class="lang-code">TR</span><span>Türkçe</span></li>
+      <li class="lang-option" role="option" data-lang="nl"><img class="lang-flag" loading="lazy" src="https://flagcdn.com/24x18/nl.png" alt=""><span class="lang-code">NL</span><span>Nederlands</span></li>
+      <li class="lang-option" role="option" data-lang="ja"><img class="lang-flag" loading="lazy" src="https://flagcdn.com/24x18/jp.png" alt=""><span class="lang-code">JP</span><span>日本語</span></li>
+    </ul>
+  </div>
+  <button type="button" class="theme-toggle--mobile" id="themeToggleMobile">
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <span class="theme-toggle-label label-sun">Light mode</span>
+    <span class="theme-toggle-label label-moon">Dark mode</span>
+  </button>
+</div>
+
+<div class="shell">
+  <header class="doc-head">
+    <span class="eyebrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6l-8-4Z"/></svg>
+      <span data-i18n="doc.eyebrow">Política de privacidad</span>
+    </span>
+    <h1 class="doc-title">Skool Master Suite</h1>
+    <p class="doc-sub" data-i18n="doc.subtitle">Lo que esta extensión lee, envía y guarda — explicado con lo que realmente hace el código, no una plantilla legal genérica.</p>
+    <div class="meta-row">
+      <span class="meta-chip" data-i18n-html="doc.meta.version">Versión <b>0.0.1 (Beta)</b></span>
+      <span class="meta-chip" data-i18n-html="doc.meta.effective">Vigente desde <b>3 de septiembre de 2026</b></span>
+      <span class="meta-chip" data-i18n-html="doc.meta.server">Servidor propio: <b>ninguno</b></span>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="Contenido">
+    <div class="toc-label" data-i18n="toc.label">En esta página</div>
+    <ol>
+      <li><a href="#resumen" data-i18n="toc.s1">Resumen rápido</a></li>
+      <li><a href="#que-hace" data-i18n="toc.s2">Qué hace la extensión</a></li>
+      <li><a href="#permisos" data-i18n="toc.s3">Permisos</a></li>
+      <li><a href="#envios" data-i18n="toc.s4">Qué sale de tu navegador</a></li>
+      <li><a href="#guardado" data-i18n="toc.s5">Qué se guarda en tu equipo</a></li>
+      <li><a href="#no-recopila" data-i18n="toc.s6">Qué no hacemos</a></li>
+      <li><a href="#controles" data-i18n="toc.s7">Tus controles</a></li>
+      <li><a href="#cambios" data-i18n="toc.s8">Cambios</a></li>
+      <li><a href="#contacto" data-i18n="toc.s9">Contacto</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <section id="resumen">
+      <h2><span class="num">01</span> <span data-i18n="s1.title">Resumen rápido</span></h2>
+      <div class="summary-card">
+        <ul>
+          <li>
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span class="txt"><strong data-i18n="s1.i1.title">No existe un servidor propio.</strong><span data-i18n="s1.i1.desc">Todo corre en tu navegador. Nadie de este proyecto ve tus publicaciones, comentarios o mensajes.</span></span>
+          </li>
+          <li>
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span class="txt"><strong data-i18n="s1.i2.title">Solo dos destinos externos.</strong><span data-i18n="s1.i2.desc">El texto que traduces va a la API pública de Google Translate; el slug de una comunidad va a skool-finder.com. Nada más sale de tu equipo.</span></span>
+          </li>
+          <li>
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span class="txt"><strong data-i18n="s1.i3.title">Cero venta o cesión de datos.</strong><span data-i18n="s1.i3.desc">No hay analítica, no hay anunciantes, no hay perfiles de usuario en ningún lado fuera de tu propio navegador.</span></span>
+          </li>
+          <li>
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span class="txt"><strong data-i18n="s1.i4.title">Todo es opcional y reversible.</strong><span data-i18n="s1.i4.desc">Cada función se apaga por separado desde los ajustes, y desinstalar la extensión borra todo lo que guardó.</span></span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="que-hace">
+      <h2><span class="num">02</span> <span data-i18n="s2.title">Qué hace la extensión</span></h2>
+      <p data-i18n-html="s2.p1">Skool Master Suite añade funciones sobre las páginas de <strong>skool.com</strong> que ya tienes abiertas: traducción de publicaciones y comentarios, marcadores, recordatorios de eventos de comunidad, notificaciones del navegador, modo oscuro, confirmaciones de lectura de chat, estadísticas públicas de comunidad y algunas utilidades más de edición y organización. Cada una es un módulo independiente que puedes desactivar sin afectar a los demás.</p>
+    </section>
+
+    <section id="permisos">
+      <h2><span class="num">03</span> <span data-i18n="s3.title">Permisos que pide y por qué</span></h2>
+      <p data-i18n="s3.p1">El manifiesto de la extensión declara el mínimo necesario para lo anterior. Nada se pide "por si acaso".</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th data-i18n="s3.th1">Permiso</th><th data-i18n="s3.th2">Tipo</th><th data-i18n="s3.th3">Para qué se usa</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="chip">storage</span></td>
+              <td><span class="tag tag-required" data-i18n="tag.required">Requerido</span></td>
+              <td data-i18n="s3.r1.desc">Guardar tus ajustes, marcadores y caché de traducción en este navegador.</td>
+            </tr>
+            <tr>
+              <td><span class="chip">alarms</span></td>
+              <td><span class="tag tag-required" data-i18n="tag.required">Requerido</span></td>
+              <td data-i18n="s3.r2.desc">Programar recordatorios de eventos de comunidad. Manifest V3 no ofrece otra forma de ejecutar algo minutos u horas después que sobreviva al cierre del service worker.</td>
+            </tr>
+            <tr>
+              <td><span class="chip">notifications</span></td>
+              <td><span class="tag tag-optional" data-i18n="tag.optional">Opcional</span></td>
+              <td data-i18n="s3.r3.desc">Mostrar notificaciones del navegador. No se solicita al instalar — solo cuando activas "Notificaciones del navegador" en los ajustes, y si lo rechazas, no se vuelve a pedir sin que tú lo actives de nuevo.</td>
+            </tr>
+            <tr>
+              <td><span class="chip">*://*.skool.com/*</span></td>
+              <td><span class="tag tag-required" data-i18n="tag.required">Requerido</span></td>
+              <td data-i18n="s3.r4.desc">Leer el contenido de las páginas de Skool que ya tienes abiertas como usuario conectado, para insertar las funciones de la extensión sobre ellas.</td>
+            </tr>
+            <tr>
+              <td><span class="chip">*://translate.googleapis.com/*</span></td>
+              <td><span class="tag tag-required" data-i18n="tag.required">Requerido</span></td>
+              <td data-i18n="s3.r5.desc">Enviar el texto que pides traducir al endpoint público de Google Translate. Ver detalle abajo.</td>
+            </tr>
+            <tr>
+              <td><span class="chip">*://skool-finder.com/*</span></td>
+              <td><span class="tag tag-required" data-i18n="tag.required">Requerido</span></td>
+              <td data-i18n="s3.r6.desc">Consultar el ranking público de una comunidad. Ver detalle abajo.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="envios">
+      <h2><span class="num">04</span> <span data-i18n="s4.title">Qué sale de tu navegador</span></h2>
+      <p data-i18n="s4.p1">Solo dos peticiones salen hacia fuera de skool.com, y ambas están acotadas a lo estrictamente necesario para la función que las dispara.</p>
+
+      <h3 data-i18n-html="s4.h3.translate">Traducción — translate.googleapis.com</h3>
+      <div class="endpoint">
+        <span class="url">GET https://translate.googleapis.com/translate_a/single?client=gtx&amp;sl=auto&amp;tl={idioma}&amp;q={texto}</span>
+        <p data-i18n="s4.e1.p1">Es el mismo endpoint público y gratuito que usa la propia página translate.google.com — sin clave de API, sin cuenta, sin cookies de sesión de Skool adjuntas. Solo viaja el fragmento de texto que se está traduciendo en ese momento (una publicación, un comentario o lo que estás escribiendo).</p>
+        <p data-i18n="s4.e1.p2">Antes de enviarse, se enmascaran las @menciones y el nombre de la comunidad para que no formen parte del texto traducido. Al ser un endpoint no oficial, Google puede limitarlo o cambiarlo sin aviso — si eso pasa, la traducción simplemente falla y el contenido original se queda como estaba.</p>
+      </div>
+
+      <h3 data-i18n-html="s4.h3.stats">Estadísticas de comunidad — skool-finder.com</h3>
+      <div class="endpoint">
+        <span class="url">GET https://skool-finder.com/en/community/{slug-de-la-comunidad}</span>
+        <p data-i18n="s4.e2.p1">Una petición pública, sin autenticación, al identificador de la comunidad que ya es visible en la URL de Skool que tienes abierta — lo mismo que vería cualquier visitante que entrara directamente a esa dirección. No se envían cookies ni datos de tu cuenta.</p>
+      </div>
+    </section>
+
+    <section id="guardado">
+      <h2><span class="num">05</span> <span data-i18n="s5.title">Qué se guarda en tu equipo</span></h2>
+      <p data-i18n-html="s5.p1">Todo lo demás se queda en el almacenamiento propio de la extensión, en tu navegador. <span class="tag tag-local">local</span> significa que nunca sale de este dispositivo; <span class="tag tag-sync">sync</span> significa que tu propia cuenta de Chrome o Firefox lo sincroniza entre tus dispositivos, exactamente igual que hace con cualquier otro ajuste — este proyecto no tiene forma de leer ese dato en tránsito.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th data-i18n="s5.th1">Función</th><th data-i18n="s5.th2">Qué guarda</th><th data-i18n="s5.th3">Ámbito</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-i18n="s5.r1.label">Ajustes generales</td>
+              <td data-i18n="s5.r1.desc">Idioma de la interfaz, módulos activados, tamaño y vista del panel lateral.</td>
+              <td><span class="tag tag-local">local</span></td>
+            </tr>
+            <tr>
+              <td data-i18n="s5.r2.label">Traducción</td>
+              <td data-i18n="s5.r2.desc">Idiomas que excluyes de traducir, idioma preferido por comunidad, y una caché de traducciones ya hechas — el texto original se guarda como un hash, nunca en claro.</td>
+              <td><span class="tag tag-local">local</span></td>
+            </tr>
+            <tr>
+              <td data-i18n="s5.r3.label">Marcadores</td>
+              <td data-i18n="s5.r3.desc">Las publicaciones y comentarios que decides guardar.</td>
+              <td><span class="tag tag-local">local</span></td>
+            </tr>
+            <tr>
+              <td data-i18n="s5.r4.label">Comunidades fijadas</td>
+              <td data-i18n="s5.r4.desc">Cómo organizas y agrupas tus comunidades en la barra lateral.</td>
+              <td><span class="tag tag-sync">sync</span></td>
+            </tr>
+            <tr>
+              <td data-i18n="s5.r5.label">Notificaciones</td>
+              <td data-i18n-html="s5.r5.desc">Tus preferencias por categoría, recordatorios programados, e ids ya vistos para no repetir avisos. El texto de los mensajes nunca se guarda — ver la <a href="#contacto">nota de notificaciones</a> más abajo.</td>
+              <td><span class="tag tag-local">local</span></td>
+            </tr>
+            <tr>
+              <td data-i18n="s5.r6.label">Lectura de posts y chat</td>
+              <td data-i18n="s5.r6.desc">Qué publicaciones y mensajes ya viste, para no marcarlos como nuevos otra vez.</td>
+              <td><span class="tag tag-local">local</span></td>
+            </tr>
+            <tr>
+              <td data-i18n="s5.r7.label">Modo oscuro</td>
+              <td data-i18n="s5.r7.desc">Tu preferencia de tema visual.</td>
+              <td><span class="tag tag-local">local</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p data-i18n-html="s5.p2">La función de notificaciones tiene su propia nota detallada, incluida en el repositorio del proyecto (<code>docs/PRIVACY-NOTIFICATIONS.md</code>), con la tabla completa de qué se guarda y por cuánto tiempo.</p>
+    </section>
+
+    <section id="no-recopila">
+      <h2><span class="num">06</span> <span data-i18n="s6.title">Qué no hacemos</span></h2>
+      <ul class="not-list">
+        <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> <span data-i18n="s6.i1">No operamos ningún servidor ni base de datos propia — no hay dónde acumular tu información.</span></li>
+        <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> <span data-i18n="s6.i2">No incluimos analítica de terceros, píxeles de rastreo ni SDKs publicitarios.</span></li>
+        <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> <span data-i18n="s6.i3">No vendemos, alquilamos ni compartimos datos con nadie.</span></li>
+        <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> <span data-i18n="s6.i4">No leemos comunidades o páginas a las que no tengas acceso ya con tu propia sesión de Skool.</span></li>
+        <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> <span data-i18n="s6.i5">No enviamos contraseñas, cookies de sesión ni tokens a Google Translate o skool-finder.com — esas peticiones no llevan tu identidad de Skool.</span></li>
+        <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> <span data-i18n="s6.i6">No guardamos el contenido de tus mensajes de chat en texto plano; donde hace falta evitar duplicados, se guarda solo un hash.</span></li>
+      </ul>
+    </section>
+
+    <section id="controles">
+      <h2><span class="num">07</span> <span data-i18n="s7.title">Tus controles</span></h2>
+      <ul class="plain">
+        <li data-i18n-html="s7.i1"><strong>Desactivar un módulo:</strong> cada función se apaga por separado desde los ajustes de la extensión, sin afectar a las demás.</li>
+        <li data-i18n-html="s7.i2"><strong>Revocar notificaciones:</strong> apaga "Notificaciones del navegador" en los ajustes, o quita el permiso <span class="chip">notifications</span> directamente desde la configuración de extensiones de tu navegador.</li>
+        <li data-i18n-html="s7.i3"><strong>Borrar la caché de traducción o tus marcadores:</strong> disponible desde los propios ajustes de cada función.</li>
+        <li data-i18n-html="s7.i4"><strong>Borrarlo todo de una vez:</strong> desinstalar la extensión elimina automáticamente todo lo que guardó, porque nada vive fuera de tu navegador.</li>
+      </ul>
+    </section>
+
+    <section id="cambios">
+      <h2><span class="num">08</span> <span data-i18n="s8.title">Cambios a esta política</span></h2>
+      <p data-i18n="s8.p1">Si lo que la extensión envía o guarda cambia, esta misma página se actualiza y la fecha de "Vigente desde" en la cabecera cambia con ella. No hay cambios silenciosos: si una versión futura empieza a enviar algo nuevo a algún sitio, se describe aquí antes de que llegue a producción.</p>
+    </section>
+
+    <section id="contacto">
+      <h2><span class="num">09</span> <span data-i18n="s9.title">Contacto</span></h2>
+      <div class="contact-box" data-i18n-html="s9.contact">
+        Preguntas sobre esta política o sobre cómo funciona alguna parte de la extensión — escríbenos a <strong><a href="mailto:reinkode@gmail.com">reinkode@gmail.com</a></strong>.
+      </div>
+      <a href="index.html" class="cta-home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-9 9 9"/><path d="M5 10v10h14V10"/></svg>
+        <span data-i18n="s9.cta">Volver al inicio</span>
+      </a>
+    </section>
+
+    <hr class="div">
+    <footer class="doc-foot">
+      <span data-i18n="footer.disclaimer1">Skool Master Suite no está afiliado a Skool.com.</span>
+      <span data-i18n="footer.disclaimer2">Este documento describe el comportamiento real del código a fecha de la versión indicada arriba.</span>
+    </footer>
+  </main>
+</div>
+
+<script src="assets/site.js"></script>
+<script>
+(function() {
+  'use strict';
+
+  var PRIVACY_I18N = {
+    es: {
+      'nav.home': 'Inicio', 'nav.features': 'Características', 'nav.testimonials': 'Testimonios', 'nav.faq': 'FAQ',
+      'doc.eyebrow': 'Política de privacidad',
+      'doc.subtitle': 'Lo que esta extensión lee, envía y guarda — explicado con lo que realmente hace el código, no una plantilla legal genérica.',
+      'doc.meta.version': 'Versión <b>0.0.1 (Beta)</b>',
+      'doc.meta.effective': 'Vigente desde <b>3 de septiembre de 2026</b>',
+      'doc.meta.server': 'Servidor propio: <b>ninguno</b>',
+      'toc.label': 'En esta página',
+      'toc.s1': 'Resumen rápido', 'toc.s2': 'Qué hace la extensión', 'toc.s3': 'Permisos', 'toc.s4': 'Qué sale de tu navegador',
+      'toc.s5': 'Qué se guarda en tu equipo', 'toc.s6': 'Qué no hacemos', 'toc.s7': 'Tus controles', 'toc.s8': 'Cambios', 'toc.s9': 'Contacto',
+      's1.title': 'Resumen rápido',
+      's1.i1.title': 'No existe un servidor propio.',
+      's1.i1.desc': 'Todo corre en tu navegador. Nadie de este proyecto ve tus publicaciones, comentarios o mensajes.',
+      's1.i2.title': 'Solo dos destinos externos.',
+      's1.i2.desc': 'El texto que traduces va a la API pública de Google Translate; el slug de una comunidad va a skool-finder.com. Nada más sale de tu equipo.',
+      's1.i3.title': 'Cero venta o cesión de datos.',
+      's1.i3.desc': 'No hay analítica, no hay anunciantes, no hay perfiles de usuario en ningún lado fuera de tu propio navegador.',
+      's1.i4.title': 'Todo es opcional y reversible.',
+      's1.i4.desc': 'Cada función se apaga por separado desde los ajustes, y desinstalar la extensión borra todo lo que guardó.',
+      's2.title': 'Qué hace la extensión',
+      's2.p1': 'Skool Master Suite añade funciones sobre las páginas de <strong>skool.com</strong> que ya tienes abiertas: traducción de publicaciones y comentarios, marcadores, recordatorios de eventos de comunidad, notificaciones del navegador, modo oscuro, confirmaciones de lectura de chat, estadísticas públicas de comunidad y algunas utilidades más de edición y organización. Cada una es un módulo independiente que puedes desactivar sin afectar a los demás.',
+      's3.title': 'Permisos que pide y por qué',
+      's3.p1': 'El manifiesto de la extensión declara el mínimo necesario para lo anterior. Nada se pide "por si acaso".',
+      's3.th1': 'Permiso', 's3.th2': 'Tipo', 's3.th3': 'Para qué se usa',
+      'tag.required': 'Requerido', 'tag.optional': 'Opcional',
+      's3.r1.desc': 'Guardar tus ajustes, marcadores y caché de traducción en este navegador.',
+      's3.r2.desc': 'Programar recordatorios de eventos de comunidad. Manifest V3 no ofrece otra forma de ejecutar algo minutos u horas después que sobreviva al cierre del service worker.',
+      's3.r3.desc': 'Mostrar notificaciones del navegador. No se solicita al instalar — solo cuando activas "Notificaciones del navegador" en los ajustes, y si lo rechazas, no se vuelve a pedir sin que tú lo actives de nuevo.',
+      's3.r4.desc': 'Leer el contenido de las páginas de Skool que ya tienes abiertas como usuario conectado, para insertar las funciones de la extensión sobre ellas.',
+      's3.r5.desc': 'Enviar el texto que pides traducir al endpoint público de Google Translate. Ver detalle abajo.',
+      's3.r6.desc': 'Consultar el ranking público de una comunidad. Ver detalle abajo.',
+      's4.title': 'Qué sale de tu navegador',
+      's4.p1': 'Solo dos peticiones salen hacia fuera de skool.com, y ambas están acotadas a lo estrictamente necesario para la función que las dispara.',
+      's4.h3.translate': 'Traducción — translate.googleapis.com',
+      's4.e1.p1': 'Es el mismo endpoint público y gratuito que usa la propia página translate.google.com — sin clave de API, sin cuenta, sin cookies de sesión de Skool adjuntas. Solo viaja el fragmento de texto que se está traduciendo en ese momento (una publicación, un comentario o lo que estás escribiendo).',
+      's4.e1.p2': 'Antes de enviarse, se enmascaran las @menciones y el nombre de la comunidad para que no formen parte del texto traducido. Al ser un endpoint no oficial, Google puede limitarlo o cambiarlo sin aviso — si eso pasa, la traducción simplemente falla y el contenido original se queda como estaba.',
+      's4.h3.stats': 'Estadísticas de comunidad — skool-finder.com',
+      's4.e2.p1': 'Una petición pública, sin autenticación, al identificador de la comunidad que ya es visible en la URL de Skool que tienes abierta — lo mismo que vería cualquier visitante que entrara directamente a esa dirección. No se envían cookies ni datos de tu cuenta.',
+      's5.title': 'Qué se guarda en tu equipo',
+      's5.p1': 'Todo lo demás se queda en el almacenamiento propio de la extensión, en tu navegador. <span class="tag tag-local">local</span> significa que nunca sale de este dispositivo; <span class="tag tag-sync">sync</span> significa que tu propia cuenta de Chrome o Firefox lo sincroniza entre tus dispositivos, exactamente igual que hace con cualquier otro ajuste — este proyecto no tiene forma de leer ese dato en tránsito.',
+      's5.th1': 'Función', 's5.th2': 'Qué guarda', 's5.th3': 'Ámbito',
+      's5.r1.label': 'Ajustes generales', 's5.r1.desc': 'Idioma de la interfaz, módulos activados, tamaño y vista del panel lateral.',
+      's5.r2.label': 'Traducción', 's5.r2.desc': 'Idiomas que excluyes de traducir, idioma preferido por comunidad, y una caché de traducciones ya hechas — el texto original se guarda como un hash, nunca en claro.',
+      's5.r3.label': 'Marcadores', 's5.r3.desc': 'Las publicaciones y comentarios que decides guardar.',
+      's5.r4.label': 'Comunidades fijadas', 's5.r4.desc': 'Cómo organizas y agrupas tus comunidades en la barra lateral.',
+      's5.r5.label': 'Notificaciones', 's5.r5.desc': 'Tus preferencias por categoría, recordatorios programados, e ids ya vistos para no repetir avisos. El texto de los mensajes nunca se guarda — ver la <a href="#contacto">nota de notificaciones</a> más abajo.',
+      's5.r6.label': 'Lectura de posts y chat', 's5.r6.desc': 'Qué publicaciones y mensajes ya viste, para no marcarlos como nuevos otra vez.',
+      's5.r7.label': 'Modo oscuro', 's5.r7.desc': 'Tu preferencia de tema visual.',
+      's5.p2': 'La función de notificaciones tiene su propia nota detallada, incluida en el repositorio del proyecto (<code>docs/PRIVACY-NOTIFICATIONS.md</code>), con la tabla completa de qué se guarda y por cuánto tiempo.',
+      's6.title': 'Qué no hacemos',
+      's6.i1': 'No operamos ningún servidor ni base de datos propia — no hay dónde acumular tu información.',
+      's6.i2': 'No incluimos analítica de terceros, píxeles de rastreo ni SDKs publicitarios.',
+      's6.i3': 'No vendemos, alquilamos ni compartimos datos con nadie.',
+      's6.i4': 'No leemos comunidades o páginas a las que no tengas acceso ya con tu propia sesión de Skool.',
+      's6.i5': 'No enviamos contraseñas, cookies de sesión ni tokens a Google Translate o skool-finder.com — esas peticiones no llevan tu identidad de Skool.',
+      's6.i6': 'No guardamos el contenido de tus mensajes de chat en texto plano; donde hace falta evitar duplicados, se guarda solo un hash.',
+      's7.title': 'Tus controles',
+      's7.i1': '<strong>Desactivar un módulo:</strong> cada función se apaga por separado desde los ajustes de la extensión, sin afectar a las demás.',
+      's7.i2': '<strong>Revocar notificaciones:</strong> apaga "Notificaciones del navegador" en los ajustes, o quita el permiso <span class="chip">notifications</span> directamente desde la configuración de extensiones de tu navegador.',
+      's7.i3': '<strong>Borrar la caché de traducción o tus marcadores:</strong> disponible desde los propios ajustes de cada función.',
+      's7.i4': '<strong>Borrarlo todo de una vez:</strong> desinstalar la extensión elimina automáticamente todo lo que guardó, porque nada vive fuera de tu navegador.',
+      's8.title': 'Cambios a esta política',
+      's8.p1': 'Si lo que la extensión envía o guarda cambia, esta misma página se actualiza y la fecha de "Vigente desde" en la cabecera cambia con ella. No hay cambios silenciosos: si una versión futura empieza a enviar algo nuevo a algún sitio, se describe aquí antes de que llegue a producción.',
+      's9.title': 'Contacto',
+      's9.contact': 'Preguntas sobre esta política o sobre cómo funciona alguna parte de la extensión — escríbenos a <strong><a href="mailto:reinkode@gmail.com">reinkode@gmail.com</a></strong>.',
+      's9.cta': 'Volver al inicio',
+      'footer.disclaimer1': 'Skool Master Suite no está afiliado a Skool.com.',
+      'footer.disclaimer2': 'Este documento describe el comportamiento real del código a fecha de la versión indicada arriba.'
+    },
+    en: {
+      'nav.home': 'Home', 'nav.features': 'Features', 'nav.testimonials': 'Testimonials', 'nav.faq': 'FAQ',
+      'doc.eyebrow': 'Privacy Policy',
+      'doc.subtitle': 'What this extension reads, sends, and stores — explained by what the code actually does, not a generic legal template.',
+      'doc.meta.version': 'Version <b>0.0.1 (Beta)</b>',
+      'doc.meta.effective': 'Effective since <b>September 3, 2026</b>',
+      'doc.meta.server': 'Own server: <b>none</b>',
+      'toc.label': 'On this page',
+      'toc.s1': 'Quick summary', 'toc.s2': 'What the extension does', 'toc.s3': 'Permissions', 'toc.s4': 'What leaves your browser',
+      'toc.s5': 'What\'s stored on your device', 'toc.s6': 'What we don\'t do', 'toc.s7': 'Your controls', 'toc.s8': 'Changes', 'toc.s9': 'Contact',
+      's1.title': 'Quick summary',
+      's1.i1.title': 'There\'s no server of our own.',
+      's1.i1.desc': 'Everything runs in your browser. No one on this project sees your posts, comments, or messages.',
+      's1.i2.title': 'Only two external destinations.',
+      's1.i2.desc': 'The text you translate goes to Google Translate\'s public API; a community\'s slug goes to skool-finder.com. Nothing else leaves your device.',
+      's1.i3.title': 'Zero sale or transfer of data.',
+      's1.i3.desc': 'No analytics, no advertisers, no user profiles anywhere outside your own browser.',
+      's1.i4.title': 'Everything is optional and reversible.',
+      's1.i4.desc': 'Each feature can be turned off individually from settings, and uninstalling the extension erases everything it stored.',
+      's2.title': 'What the extension does',
+      's2.p1': 'Skool Master Suite adds features on top of the <strong>skool.com</strong> pages you already have open: translation of posts and comments, bookmarks, community event reminders, browser notifications, dark mode, chat read receipts, public community stats, and a few more editing and organization utilities. Each one is an independent module you can turn off without affecting the others.',
+      's3.title': 'Permissions it requests and why',
+      's3.p1': 'The extension\'s manifest declares the bare minimum needed for the above. Nothing is requested "just in case."',
+      's3.th1': 'Permission', 's3.th2': 'Type', 's3.th3': 'What it\'s used for',
+      'tag.required': 'Required', 'tag.optional': 'Optional',
+      's3.r1.desc': 'Store your settings, bookmarks, and translation cache in this browser.',
+      's3.r2.desc': 'Schedule community event reminders. Manifest V3 offers no other way to run something minutes or hours later that survives the service worker shutting down.',
+      's3.r3.desc': 'Show browser notifications. Not requested on install — only when you enable "Browser Notifications" in settings, and if you decline, it isn\'t asked for again unless you turn it on yourself.',
+      's3.r4.desc': 'Read the content of the Skool pages you already have open as a logged-in user, in order to inject the extension\'s features onto them.',
+      's3.r5.desc': 'Send the text you ask to translate to Google Translate\'s public endpoint. See details below.',
+      's3.r6.desc': 'Look up a community\'s public ranking. See details below.',
+      's4.title': 'What leaves your browser',
+      's4.p1': 'Only two requests go out beyond skool.com, and both are limited to exactly what the triggering feature needs.',
+      's4.h3.translate': 'Translation — translate.googleapis.com',
+      's4.e1.p1': 'It\'s the same free public endpoint used by translate.google.com itself — no API key, no account, no Skool session cookies attached. Only the fragment of text being translated at that moment travels (a post, a comment, or whatever you\'re typing).',
+      's4.e1.p2': 'Before sending, @mentions and the community name are masked out so they aren\'t part of the translated text. Since it\'s an unofficial endpoint, Google can rate-limit or change it without notice — if that happens, translation simply fails and the original content stays as it was.',
+      's4.h3.stats': 'Community stats — skool-finder.com',
+      's4.e2.p1': 'A public, unauthenticated request to the community identifier already visible in the Skool URL you have open — the same thing any visitor would see by going straight to that address. No cookies or account data are sent.',
+      's5.title': 'What\'s stored on your device',
+      's5.p1': 'Everything else stays in the extension\'s own storage, in your browser. <span class="tag tag-local">local</span> means it never leaves this device; <span class="tag tag-sync">sync</span> means your own Chrome or Firefox account syncs it across your devices, exactly like it does with any other setting — this project has no way to read that data in transit.',
+      's5.th1': 'Feature', 's5.th2': 'What it stores', 's5.th3': 'Scope',
+      's5.r1.label': 'General settings', 's5.r1.desc': 'Interface language, enabled modules, sidebar size and view.',
+      's5.r2.label': 'Translation', 's5.r2.desc': 'Languages you exclude from translation, preferred language per community, and a cache of translations already made — the original text is stored as a hash, never in plain text.',
+      's5.r3.label': 'Bookmarks', 's5.r3.desc': 'The posts and comments you choose to save.',
+      's5.r4.label': 'Pinned communities', 's5.r4.desc': 'How you organize and group your communities in the sidebar.',
+      's5.r5.label': 'Notifications', 's5.r5.desc': 'Your per-category preferences, scheduled reminders, and already-seen ids so alerts aren\'t repeated. Message text is never stored — see the <a href="#contacto">notifications note</a> below.',
+      's5.r6.label': 'Post and chat read state', 's5.r6.desc': 'Which posts and messages you\'ve already seen, so they aren\'t marked as new again.',
+      's5.r7.label': 'Dark mode', 's5.r7.desc': 'Your visual theme preference.',
+      's5.p2': 'The notifications feature has its own detailed note, included in the project\'s repository (<code>docs/PRIVACY-NOTIFICATIONS.md</code>), with the full table of what\'s stored and for how long.',
+      's6.title': 'What we don\'t do',
+      's6.i1': 'We don\'t run any server or database of our own — there\'s nowhere to accumulate your information.',
+      's6.i2': 'We don\'t include third-party analytics, tracking pixels, or advertising SDKs.',
+      's6.i3': 'We don\'t sell, rent, or share data with anyone.',
+      's6.i4': 'We don\'t read communities or pages you don\'t already have access to with your own Skool session.',
+      's6.i5': 'We don\'t send passwords, session cookies, or tokens to Google Translate or skool-finder.com — those requests carry no Skool identity of yours.',
+      's6.i6': 'We don\'t store your chat message content in plain text; where duplicates need to be avoided, only a hash is stored.',
+      's7.title': 'Your controls',
+      's7.i1': '<strong>Turn off a module:</strong> each feature is switched off individually from the extension\'s settings, without affecting the others.',
+      's7.i2': '<strong>Revoke notifications:</strong> turn off "Browser Notifications" in settings, or remove the <span class="chip">notifications</span> permission directly from your browser\'s extension settings.',
+      's7.i3': '<strong>Clear the translation cache or your bookmarks:</strong> available from each feature\'s own settings.',
+      's7.i4': '<strong>Erase everything at once:</strong> uninstalling the extension automatically deletes everything it stored, because nothing lives outside your browser.',
+      's8.title': 'Changes to this policy',
+      's8.p1': 'If what the extension sends or stores changes, this same page is updated and the "Effective since" date in the header changes with it. There are no silent changes: if a future version starts sending something new somewhere, it\'s described here before it reaches production.',
+      's9.title': 'Contact',
+      's9.contact': 'Questions about this policy or how any part of the extension works — write to us at <strong><a href="mailto:reinkode@gmail.com">reinkode@gmail.com</a></strong>.',
+      's9.cta': 'Back to home',
+      'footer.disclaimer1': 'Skool Master Suite is not affiliated with Skool.com.',
+      'footer.disclaimer2': 'This document describes the code\'s actual behavior as of the version indicated above.'
+    },
+    de: {
+      'nav.home': 'Startseite', 'nav.features': 'Funktionen', 'nav.testimonials': 'Erfahrungen', 'nav.faq': 'FAQ',
+      'doc.eyebrow': 'Datenschutzerklärung',
+      'doc.subtitle': 'Was diese Erweiterung liest, sendet und speichert — erklärt anhand dessen, was der Code tatsächlich tut, nicht anhand einer generischen Rechtsvorlage.',
+      'doc.meta.version': 'Version <b>0.0.1 (Beta)</b>',
+      'doc.meta.effective': 'Gültig seit <b>3. September 2026</b>',
+      'doc.meta.server': 'Eigener Server: <b>keiner</b>',
+      'toc.label': 'Auf dieser Seite',
+      'toc.s1': 'Kurzübersicht', 'toc.s2': 'Was die Erweiterung tut', 'toc.s3': 'Berechtigungen', 'toc.s4': 'Was deinen Browser verlässt',
+      'toc.s5': 'Was auf deinem Gerät gespeichert wird', 'toc.s6': 'Was wir nicht tun', 'toc.s7': 'Deine Kontrollmöglichkeiten', 'toc.s8': 'Änderungen', 'toc.s9': 'Kontakt',
+      's1.title': 'Kurzübersicht',
+      's1.i1.title': 'Es gibt keinen eigenen Server.',
+      's1.i1.desc': 'Alles läuft in deinem Browser. Niemand in diesem Projekt sieht deine Beiträge, Kommentare oder Nachrichten.',
+      's1.i2.title': 'Nur zwei externe Ziele.',
+      's1.i2.desc': 'Der Text, den du übersetzt, geht an die öffentliche API von Google Translate; der Slug einer Community geht an skool-finder.com. Sonst verlässt nichts dein Gerät.',
+      's1.i3.title': 'Kein Verkauf oder Weitergabe von Daten.',
+      's1.i3.desc': 'Keine Analyse-Tools, keine Werbetreibenden, keine Nutzerprofile irgendwo außerhalb deines eigenen Browsers.',
+      's1.i4.title': 'Alles ist optional und rückgängig zu machen.',
+      's1.i4.desc': 'Jede Funktion lässt sich einzeln in den Einstellungen deaktivieren, und das Deinstallieren der Erweiterung löscht alles, was sie gespeichert hat.',
+      's2.title': 'Was die Erweiterung tut',
+      's2.p1': 'Skool Master Suite fügt Funktionen zu den <strong>skool.com</strong>-Seiten hinzu, die du bereits geöffnet hast: Übersetzung von Beiträgen und Kommentaren, Lesezeichen, Erinnerungen an Community-Events, Browser-Benachrichtigungen, Dunkelmodus, Lesebestätigungen im Chat, öffentliche Community-Statistiken und einige weitere Bearbeitungs- und Organisationswerkzeuge. Jede davon ist ein unabhängiges Modul, das du deaktivieren kannst, ohne die anderen zu beeinträchtigen.',
+      's3.title': 'Angefragte Berechtigungen und warum',
+      's3.p1': 'Das Manifest der Erweiterung deklariert das absolute Minimum, das für das oben Genannte nötig ist. Nichts wird "sicherheitshalber" angefragt.',
+      's3.th1': 'Berechtigung', 's3.th2': 'Typ', 's3.th3': 'Wofür sie verwendet wird',
+      'tag.required': 'Erforderlich', 'tag.optional': 'Optional',
+      's3.r1.desc': 'Deine Einstellungen, Lesezeichen und den Übersetzungs-Cache in diesem Browser speichern.',
+      's3.r2.desc': 'Erinnerungen an Community-Events planen. Manifest V3 bietet keine andere Möglichkeit, etwas Minuten oder Stunden später auszuführen, das das Beenden des Service Workers übersteht.',
+      's3.r3.desc': 'Browser-Benachrichtigungen anzeigen. Wird bei der Installation nicht angefragt — nur wenn du „Browser-Benachrichtigungen" in den Einstellungen aktivierst, und wenn du ablehnst, wird nicht erneut gefragt, es sei denn, du aktivierst es selbst wieder.',
+      's3.r4.desc': 'Den Inhalt der Skool-Seiten lesen, die du als angemeldeter Nutzer bereits geöffnet hast, um die Funktionen der Erweiterung darauf einzufügen.',
+      's3.r5.desc': 'Den Text, den du übersetzen lassen möchtest, an den öffentlichen Endpunkt von Google Translate senden. Details siehe unten.',
+      's3.r6.desc': 'Das öffentliche Ranking einer Community abrufen. Details siehe unten.',
+      's4.title': 'Was deinen Browser verlässt',
+      's4.p1': 'Nur zwei Anfragen gehen über skool.com hinaus, und beide sind auf das absolut Notwendige für die auslösende Funktion beschränkt.',
+      's4.h3.translate': 'Übersetzung — translate.googleapis.com',
+      's4.e1.p1': 'Es ist derselbe kostenlose, öffentliche Endpunkt, den auch translate.google.com selbst verwendet — ohne API-Schlüssel, ohne Konto, ohne angehängte Skool-Sitzungscookies. Es reist nur das Textfragment, das in diesem Moment übersetzt wird (ein Beitrag, ein Kommentar oder das, was du gerade schreibst).',
+      's4.e1.p2': 'Vor dem Senden werden @Erwähnungen und der Community-Name maskiert, damit sie nicht Teil des übersetzten Textes werden. Da es sich um einen inoffiziellen Endpunkt handelt, kann Google ihn ohne Vorankündigung einschränken oder ändern — sollte das passieren, schlägt die Übersetzung einfach fehl und der ursprüngliche Inhalt bleibt unverändert.',
+      's4.h3.stats': 'Community-Statistiken — skool-finder.com',
+      's4.e2.p1': 'Eine öffentliche, nicht authentifizierte Anfrage an die Community-Kennung, die bereits in der geöffneten Skool-URL sichtbar ist — dasselbe, was jeder Besucher sehen würde, der diese Adresse direkt aufruft. Es werden keine Cookies oder Kontodaten gesendet.',
+      's5.title': 'Was auf deinem Gerät gespeichert wird',
+      's5.p1': 'Alles andere bleibt im eigenen Speicher der Erweiterung, in deinem Browser. <span class="tag tag-local">local</span> bedeutet, dass es dieses Gerät nie verlässt; <span class="tag tag-sync">sync</span> bedeutet, dass dein eigenes Chrome- oder Firefox-Konto es zwischen deinen Geräten synchronisiert, genau wie bei jeder anderen Einstellung — dieses Projekt hat keine Möglichkeit, diese Daten während der Übertragung zu lesen.',
+      's5.th1': 'Funktion', 's5.th2': 'Was gespeichert wird', 's5.th3': 'Umfang',
+      's5.r1.label': 'Allgemeine Einstellungen', 's5.r1.desc': 'Oberflächensprache, aktivierte Module, Größe und Ansicht der Seitenleiste.',
+      's5.r2.label': 'Übersetzung', 's5.r2.desc': 'Sprachen, die du von der Übersetzung ausschließt, bevorzugte Sprache pro Community und ein Cache bereits erstellter Übersetzungen — der Originaltext wird als Hash gespeichert, niemals im Klartext.',
+      's5.r3.label': 'Lesezeichen', 's5.r3.desc': 'Die Beiträge und Kommentare, die du speichern möchtest.',
+      's5.r4.label': 'Angeheftete Communitys', 's5.r4.desc': 'Wie du deine Communitys in der Seitenleiste organisierst und gruppierst.',
+      's5.r5.label': 'Benachrichtigungen', 's5.r5.desc': 'Deine Präferenzen nach Kategorie, geplante Erinnerungen und bereits gesehene IDs, damit Hinweise nicht wiederholt werden. Der Nachrichtentext wird nie gespeichert — siehe die <a href="#contacto">Hinweis zu Benachrichtigungen</a> weiter unten.',
+      's5.r6.label': 'Lesestatus von Beiträgen und Chat', 's5.r6.desc': 'Welche Beiträge und Nachrichten du bereits gesehen hast, damit sie nicht erneut als neu markiert werden.',
+      's5.r7.label': 'Dunkelmodus', 's5.r7.desc': 'Deine Präferenz für das visuelle Design.',
+      's5.p2': 'Die Benachrichtigungsfunktion hat ihre eigene ausführliche Notiz im Repository des Projekts (<code>docs/PRIVACY-NOTIFICATIONS.md</code>) mit der vollständigen Tabelle, was gespeichert wird und für wie lange.',
+      's6.title': 'Was wir nicht tun',
+      's6.i1': 'Wir betreiben keinen eigenen Server oder eigene Datenbank — es gibt keinen Ort, an dem sich deine Informationen ansammeln könnten.',
+      's6.i2': 'Wir binden keine Analyse-Tools von Drittanbietern, Tracking-Pixel oder Werbe-SDKs ein.',
+      's6.i3': 'Wir verkaufen, vermieten oder teilen keine Daten mit irgendjemandem.',
+      's6.i4': 'Wir lesen keine Communitys oder Seiten, zu denen du nicht bereits mit deiner eigenen Skool-Sitzung Zugriff hast.',
+      's6.i5': 'Wir senden keine Passwörter, Sitzungscookies oder Tokens an Google Translate oder skool-finder.com — diese Anfragen enthalten keine Skool-Identität von dir.',
+      's6.i6': 'Wir speichern den Inhalt deiner Chatnachrichten nicht im Klartext; wo Duplikate vermieden werden müssen, wird nur ein Hash gespeichert.',
+      's7.title': 'Deine Kontrollmöglichkeiten',
+      's7.i1': '<strong>Ein Modul deaktivieren:</strong> Jede Funktion wird einzeln in den Einstellungen der Erweiterung ausgeschaltet, ohne die anderen zu beeinträchtigen.',
+      's7.i2': '<strong>Benachrichtigungen widerrufen:</strong> Schalte „Browser-Benachrichtigungen" in den Einstellungen aus, oder entferne die Berechtigung <span class="chip">notifications</span> direkt in den Erweiterungseinstellungen deines Browsers.',
+      's7.i3': '<strong>Übersetzungs-Cache oder deine Lesezeichen löschen:</strong> verfügbar in den jeweiligen Einstellungen jeder Funktion.',
+      's7.i4': '<strong>Alles auf einmal löschen:</strong> Das Deinstallieren der Erweiterung löscht automatisch alles, was sie gespeichert hat, da nichts außerhalb deines Browsers existiert.',
+      's8.title': 'Änderungen an dieser Richtlinie',
+      's8.p1': 'Wenn sich das ändert, was die Erweiterung sendet oder speichert, wird diese Seite aktualisiert und das Datum „Gültig seit" in der Kopfzeile ändert sich entsprechend. Es gibt keine stillen Änderungen: Wenn eine zukünftige Version beginnt, etwas Neues irgendwohin zu senden, wird das hier beschrieben, bevor es in Produktion geht.',
+      's9.title': 'Kontakt',
+      's9.contact': 'Fragen zu dieser Richtlinie oder dazu, wie ein Teil der Erweiterung funktioniert — schreib uns an <strong><a href="mailto:reinkode@gmail.com">reinkode@gmail.com</a></strong>.',
+      's9.cta': 'Zurück zur Startseite',
+      'footer.disclaimer1': 'Skool Master Suite ist nicht mit Skool.com verbunden.',
+      'footer.disclaimer2': 'Dieses Dokument beschreibt das tatsächliche Verhalten des Codes zum Stand der oben angegebenen Version.'
+    },
+    fr: {
+      'nav.home': 'Accueil', 'nav.features': 'Fonctionnalités', 'nav.testimonials': 'Témoignages', 'nav.faq': 'FAQ',
+      'doc.eyebrow': 'Politique de confidentialité',
+      'doc.subtitle': 'Ce que cette extension lit, envoie et enregistre — expliqué à partir de ce que le code fait réellement, pas d\'un modèle juridique générique.',
+      'doc.meta.version': 'Version <b>0.0.1 (Beta)</b>',
+      'doc.meta.effective': 'En vigueur depuis le <b>3 septembre 2026</b>',
+      'doc.meta.server': 'Serveur propre : <b>aucun</b>',
+      'toc.label': 'Sur cette page',
+      'toc.s1': 'Résumé rapide', 'toc.s2': 'Ce que fait l\'extension', 'toc.s3': 'Autorisations', 'toc.s4': 'Ce qui sort de ton navigateur',
+      'toc.s5': 'Ce qui est stocké sur ton appareil', 'toc.s6': 'Ce que nous ne faisons pas', 'toc.s7': 'Tes options de contrôle', 'toc.s8': 'Modifications', 'toc.s9': 'Contact',
+      's1.title': 'Résumé rapide',
+      's1.i1.title': 'Il n\'existe aucun serveur qui nous appartienne.',
+      's1.i1.desc': 'Tout fonctionne dans ton navigateur. Personne dans ce projet ne voit tes publications, commentaires ou messages.',
+      's1.i2.title': 'Seulement deux destinations externes.',
+      's1.i2.desc': 'Le texte que tu traduis part vers l\'API publique de Google Translate ; le slug d\'une communauté part vers skool-finder.com. Rien d\'autre ne quitte ton appareil.',
+      's1.i3.title': 'Aucune vente ni cession de données.',
+      's1.i3.desc': 'Pas d\'analytique, pas d\'annonceurs, pas de profils d\'utilisateurs nulle part en dehors de ton propre navigateur.',
+      's1.i4.title': 'Tout est facultatif et réversible.',
+      's1.i4.desc': 'Chaque fonctionnalité se désactive séparément depuis les paramètres, et désinstaller l\'extension efface tout ce qu\'elle a enregistré.',
+      's2.title': 'Ce que fait l\'extension',
+      's2.p1': 'Skool Master Suite ajoute des fonctionnalités sur les pages <strong>skool.com</strong> que tu as déjà ouvertes : traduction des publications et commentaires, favoris, rappels d\'événements de communauté, notifications du navigateur, mode sombre, accusés de lecture du chat, statistiques publiques des communautés et quelques autres outils d\'édition et d\'organisation. Chacune est un module indépendant que tu peux désactiver sans affecter les autres.',
+      's3.title': 'Autorisations demandées et pourquoi',
+      's3.p1': 'Le manifeste de l\'extension déclare le strict minimum nécessaire pour ce qui précède. Rien n\'est demandé « au cas où ».',
+      's3.th1': 'Autorisation', 's3.th2': 'Type', 's3.th3': 'À quoi ça sert',
+      'tag.required': 'Requise', 'tag.optional': 'Facultative',
+      's3.r1.desc': 'Enregistrer tes paramètres, favoris et le cache de traduction dans ce navigateur.',
+      's3.r2.desc': 'Programmer les rappels d\'événements de communauté. Manifest V3 n\'offre aucun autre moyen d\'exécuter quelque chose minutes ou heures plus tard qui survive à l\'arrêt du service worker.',
+      's3.r3.desc': 'Afficher les notifications du navigateur. Non demandée à l\'installation — seulement quand tu actives « Notifications du navigateur » dans les paramètres, et si tu refuses, elle n\'est plus redemandée sauf si tu l\'actives toi-même.',
+      's3.r4.desc': 'Lire le contenu des pages Skool que tu as déjà ouvertes en tant qu\'utilisateur connecté, afin d\'y insérer les fonctionnalités de l\'extension.',
+      's3.r5.desc': 'Envoyer le texte que tu demandes à traduire vers le point d\'accès public de Google Translate. Voir le détail ci-dessous.',
+      's3.r6.desc': 'Consulter le classement public d\'une communauté. Voir le détail ci-dessous.',
+      's4.title': 'Ce qui sort de ton navigateur',
+      's4.p1': 'Seules deux requêtes sortent en dehors de skool.com, et toutes deux sont limitées à ce qui est strictement nécessaire pour la fonctionnalité qui les déclenche.',
+      's4.h3.translate': 'Traduction — translate.googleapis.com',
+      's4.e1.p1': 'C\'est le même point d\'accès public et gratuit qu\'utilise translate.google.com lui-même — sans clé API, sans compte, sans cookies de session Skool attachés. Seul le fragment de texte en cours de traduction voyage (une publication, un commentaire, ou ce que tu es en train d\'écrire).',
+      's4.e1.p2': 'Avant l\'envoi, les @mentions et le nom de la communauté sont masqués afin qu\'ils ne fassent pas partie du texte traduit. S\'agissant d\'un point d\'accès non officiel, Google peut le limiter ou le modifier sans préavis — si cela arrive, la traduction échoue simplement et le contenu original reste tel quel.',
+      's4.h3.stats': 'Statistiques de communauté — skool-finder.com',
+      's4.e2.p1': 'Une requête publique, sans authentification, vers l\'identifiant de communauté déjà visible dans l\'URL Skool que tu as ouverte — la même chose que verrait n\'importe quel visiteur en accédant directement à cette adresse. Aucun cookie ni donnée de compte n\'est envoyé.',
+      's5.title': 'Ce qui est stocké sur ton appareil',
+      's5.p1': 'Tout le reste reste dans le stockage propre de l\'extension, dans ton navigateur. <span class="tag tag-local">local</span> signifie que ça ne quitte jamais cet appareil ; <span class="tag tag-sync">sync</span> signifie que ton propre compte Chrome ou Firefox le synchronise entre tes appareils, exactement comme il le fait pour tout autre paramètre — ce projet n\'a aucun moyen de lire cette donnée en transit.',
+      's5.th1': 'Fonctionnalité', 's5.th2': 'Ce qui est stocké', 's5.th3': 'Portée',
+      's5.r1.label': 'Paramètres généraux', 's5.r1.desc': 'Langue de l\'interface, modules activés, taille et vue du panneau latéral.',
+      's5.r2.label': 'Traduction', 's5.r2.desc': 'Langues que tu exclus de la traduction, langue préférée par communauté, et un cache des traductions déjà effectuées — le texte original est stocké sous forme de hash, jamais en clair.',
+      's5.r3.label': 'Favoris', 's5.r3.desc': 'Les publications et commentaires que tu choisis d\'enregistrer.',
+      's5.r4.label': 'Communautés épinglées', 's5.r4.desc': 'La façon dont tu organises et regroupes tes communautés dans la barre latérale.',
+      's5.r5.label': 'Notifications', 's5.r5.desc': 'Tes préférences par catégorie, les rappels programmés et les identifiants déjà vus pour ne pas répéter les alertes. Le texte des messages n\'est jamais stocké — voir la <a href="#contacto">note sur les notifications</a> ci-dessous.',
+      's5.r6.label': 'Lecture des publications et du chat', 's5.r6.desc': 'Quelles publications et quels messages tu as déjà vus, pour qu\'ils ne soient pas marqués à nouveau comme nouveaux.',
+      's5.r7.label': 'Mode sombre', 's5.r7.desc': 'Ta préférence de thème visuel.',
+      's5.p2': 'La fonctionnalité de notifications dispose de sa propre note détaillée, incluse dans le dépôt du projet (<code>docs/PRIVACY-NOTIFICATIONS.md</code>), avec le tableau complet de ce qui est stocké et pendant combien de temps.',
+      's6.title': 'Ce que nous ne faisons pas',
+      's6.i1': 'Nous n\'exploitons aucun serveur ni base de données qui nous appartienne — il n\'y a nulle part où accumuler tes informations.',
+      's6.i2': 'Nous n\'incluons aucune analytique tierce, aucun pixel de suivi ni aucun SDK publicitaire.',
+      's6.i3': 'Nous ne vendons, ne louons ni ne partageons de données avec qui que ce soit.',
+      's6.i4': 'Nous ne lisons pas de communautés ou de pages auxquelles tu n\'as pas déjà accès avec ta propre session Skool.',
+      's6.i5': 'Nous n\'envoyons ni mots de passe, ni cookies de session, ni jetons à Google Translate ou skool-finder.com — ces requêtes ne portent aucune identité Skool te concernant.',
+      's6.i6': 'Nous ne stockons pas le contenu de tes messages de chat en clair ; là où il faut éviter les doublons, seul un hash est stocké.',
+      's7.title': 'Tes options de contrôle',
+      's7.i1': '<strong>Désactiver un module :</strong> chaque fonctionnalité se désactive séparément depuis les paramètres de l\'extension, sans affecter les autres.',
+      's7.i2': '<strong>Révoquer les notifications :</strong> désactive « Notifications du navigateur » dans les paramètres, ou retire l\'autorisation <span class="chip">notifications</span> directement depuis la configuration des extensions de ton navigateur.',
+      's7.i3': '<strong>Effacer le cache de traduction ou tes favoris :</strong> disponible depuis les paramètres propres à chaque fonctionnalité.',
+      's7.i4': '<strong>Tout effacer d\'un coup :</strong> désinstaller l\'extension supprime automatiquement tout ce qu\'elle a stocké, car rien ne vit en dehors de ton navigateur.',
+      's8.title': 'Modifications de cette politique',
+      's8.p1': 'Si ce que l\'extension envoie ou stocke change, cette même page est mise à jour et la date « En vigueur depuis » dans l\'en-tête change avec elle. Il n\'y a pas de changements silencieux : si une future version commence à envoyer quelque chose de nouveau quelque part, cela est décrit ici avant d\'arriver en production.',
+      's9.title': 'Contact',
+      's9.contact': 'Des questions sur cette politique ou sur le fonctionnement d\'une partie de l\'extension — écris-nous à <strong><a href="mailto:reinkode@gmail.com">reinkode@gmail.com</a></strong>.',
+      's9.cta': 'Retour à l\'accueil',
+      'footer.disclaimer1': 'Skool Master Suite n\'est pas affilié à Skool.com.',
+      'footer.disclaimer2': 'Ce document décrit le comportement réel du code à la date de la version indiquée ci-dessus.'
+    },
+    pt: {
+      'nav.home': 'Início', 'nav.features': 'Recursos', 'nav.testimonials': 'Depoimentos', 'nav.faq': 'FAQ',
+      'doc.eyebrow': 'Política de Privacidade',
+      'doc.subtitle': 'O que esta extensão lê, envia e armazena — explicado com base no que o código realmente faz, não um modelo jurídico genérico.',
+      'doc.meta.version': 'Versão <b>0.0.1 (Beta)</b>',
+      'doc.meta.effective': 'Vigente desde <b>3 de setembro de 2026</b>',
+      'doc.meta.server': 'Servidor próprio: <b>nenhum</b>',
+      'toc.label': 'Nesta página',
+      'toc.s1': 'Resumo rápido', 'toc.s2': 'O que a extensão faz', 'toc.s3': 'Permissões', 'toc.s4': 'O que sai do seu navegador',
+      'toc.s5': 'O que é salvo no seu dispositivo', 'toc.s6': 'O que não fazemos', 'toc.s7': 'Seus controles', 'toc.s8': 'Alterações', 'toc.s9': 'Contato',
+      's1.title': 'Resumo rápido',
+      's1.i1.title': 'Não existe um servidor próprio.',
+      's1.i1.desc': 'Tudo roda no seu navegador. Ninguém deste projeto vê suas publicações, comentários ou mensagens.',
+      's1.i2.title': 'Apenas dois destinos externos.',
+      's1.i2.desc': 'O texto que você traduz vai para a API pública do Google Translate; o slug de uma comunidade vai para skool-finder.com. Nada mais sai do seu dispositivo.',
+      's1.i3.title': 'Zero venda ou cessão de dados.',
+      's1.i3.desc': 'Não há análises, não há anunciantes, não há perfis de usuário em nenhum lugar fora do seu próprio navegador.',
+      's1.i4.title': 'Tudo é opcional e reversível.',
+      's1.i4.desc': 'Cada função é desativada separadamente pelas configurações, e desinstalar a extensão apaga tudo o que ela armazenou.',
+      's2.title': 'O que a extensão faz',
+      's2.p1': 'A Skool Master Suite adiciona funções às páginas do <strong>skool.com</strong> que você já tem abertas: tradução de publicações e comentários, favoritos, lembretes de eventos da comunidade, notificações do navegador, modo escuro, confirmações de leitura no chat, estatísticas públicas da comunidade e mais alguns utilitários de edição e organização. Cada uma é um módulo independente que você pode desativar sem afetar as demais.',
+      's3.title': 'Permissões solicitadas e por quê',
+      's3.p1': 'O manifesto da extensão declara o mínimo necessário para o exposto acima. Nada é solicitado "só por precaução".',
+      's3.th1': 'Permissão', 's3.th2': 'Tipo', 's3.th3': 'Para que é usada',
+      'tag.required': 'Obrigatória', 'tag.optional': 'Opcional',
+      's3.r1.desc': 'Salvar suas configurações, favoritos e cache de tradução neste navegador.',
+      's3.r2.desc': 'Agendar lembretes de eventos da comunidade. O Manifest V3 não oferece outra forma de executar algo minutos ou horas depois que sobreviva ao encerramento do service worker.',
+      's3.r3.desc': 'Exibir notificações do navegador. Não é solicitada na instalação — só quando você ativa "Notificações do navegador" nas configurações, e se você recusar, não será pedida novamente a menos que você mesmo a ative.',
+      's3.r4.desc': 'Ler o conteúdo das páginas do Skool que você já tem abertas como usuário conectado, para inserir as funções da extensão nelas.',
+      's3.r5.desc': 'Enviar o texto que você pede para traduzir ao endpoint público do Google Translate. Veja detalhes abaixo.',
+      's3.r6.desc': 'Consultar o ranking público de uma comunidade. Veja detalhes abaixo.',
+      's4.title': 'O que sai do seu navegador',
+      's4.p1': 'Somente duas requisições saem para fora do skool.com, e ambas são restritas ao estritamente necessário para a função que as aciona.',
+      's4.h3.translate': 'Tradução — translate.googleapis.com',
+      's4.e1.p1': 'É o mesmo endpoint público e gratuito usado pela própria página translate.google.com — sem chave de API, sem conta, sem cookies de sessão do Skool anexados. Só viaja o fragmento de texto que está sendo traduzido naquele momento (uma publicação, um comentário ou o que você está digitando).',
+      's4.e1.p2': 'Antes do envio, as @menções e o nome da comunidade são mascarados para que não façam parte do texto traduzido. Por ser um endpoint não oficial, o Google pode limitá-lo ou alterá-lo sem aviso — se isso acontecer, a tradução simplesmente falha e o conteúdo original permanece como estava.',
+      's4.h3.stats': 'Estatísticas da comunidade — skool-finder.com',
+      's4.e2.p1': 'Uma requisição pública, sem autenticação, ao identificador da comunidade já visível na URL do Skool que você tem aberta — a mesma coisa que qualquer visitante veria ao acessar diretamente esse endereço. Não são enviados cookies nem dados da conta.',
+      's5.title': 'O que é salvo no seu dispositivo',
+      's5.p1': 'Tudo o mais fica no armazenamento próprio da extensão, no seu navegador. <span class="tag tag-local">local</span> significa que nunca sai deste dispositivo; <span class="tag tag-sync">sync</span> significa que sua própria conta do Chrome ou Firefox sincroniza isso entre seus dispositivos, exatamente como faz com qualquer outra configuração — este projeto não tem como ler esse dado em trânsito.',
+      's5.th1': 'Função', 's5.th2': 'O que armazena', 's5.th3': 'Âmbito',
+      's5.r1.label': 'Configurações gerais', 's5.r1.desc': 'Idioma da interface, módulos ativados, tamanho e visualização do painel lateral.',
+      's5.r2.label': 'Tradução', 's5.r2.desc': 'Idiomas que você exclui da tradução, idioma preferido por comunidade, e um cache de traduções já feitas — o texto original é salvo como um hash, nunca em texto puro.',
+      's5.r3.label': 'Favoritos', 's5.r3.desc': 'As publicações e comentários que você decide salvar.',
+      's5.r4.label': 'Comunidades fixadas', 's5.r4.desc': 'Como você organiza e agrupa suas comunidades na barra lateral.',
+      's5.r5.label': 'Notificações', 's5.r5.desc': 'Suas preferências por categoria, lembretes agendados e ids já vistos para não repetir avisos. O texto das mensagens nunca é salvo — veja a <a href="#contacto">nota sobre notificações</a> abaixo.',
+      's5.r6.label': 'Leitura de posts e chat', 's5.r6.desc': 'Quais publicações e mensagens você já viu, para não marcá-las como novas de novo.',
+      's5.r7.label': 'Modo escuro', 's5.r7.desc': 'Sua preferência de tema visual.',
+      's5.p2': 'A função de notificações tem sua própria nota detalhada, incluída no repositório do projeto (<code>docs/PRIVACY-NOTIFICATIONS.md</code>), com a tabela completa do que é armazenado e por quanto tempo.',
+      's6.title': 'O que não fazemos',
+      's6.i1': 'Não operamos nenhum servidor ou banco de dados próprio — não há onde acumular suas informações.',
+      's6.i2': 'Não incluímos análises de terceiros, pixels de rastreamento ou SDKs de publicidade.',
+      's6.i3': 'Não vendemos, alugamos nem compartilhamos dados com ninguém.',
+      's6.i4': 'Não lemos comunidades ou páginas às quais você ainda não tem acesso com sua própria sessão do Skool.',
+      's6.i5': 'Não enviamos senhas, cookies de sessão nem tokens ao Google Translate ou skool-finder.com — essas requisições não carregam sua identidade do Skool.',
+      's6.i6': 'Não armazenamos o conteúdo das suas mensagens de chat em texto puro; onde é preciso evitar duplicatas, é salvo apenas um hash.',
+      's7.title': 'Seus controles',
+      's7.i1': '<strong>Desativar um módulo:</strong> cada função é desativada separadamente nas configurações da extensão, sem afetar as demais.',
+      's7.i2': '<strong>Revogar notificações:</strong> desative "Notificações do navegador" nas configurações, ou remova a permissão <span class="chip">notifications</span> diretamente nas configurações de extensões do seu navegador.',
+      's7.i3': '<strong>Limpar o cache de tradução ou seus favoritos:</strong> disponível nas próprias configurações de cada função.',
+      's7.i4': '<strong>Apagar tudo de uma vez:</strong> desinstalar a extensão apaga automaticamente tudo o que ela armazenou, porque nada existe fora do seu navegador.',
+      's8.title': 'Alterações nesta política',
+      's8.p1': 'Se o que a extensão envia ou armazena mudar, esta mesma página é atualizada e a data "Vigente desde" no cabeçalho muda junto. Não há mudanças silenciosas: se uma versão futura passar a enviar algo novo para algum lugar, isso é descrito aqui antes de chegar à produção.',
+      's9.title': 'Contato',
+      's9.contact': 'Dúvidas sobre esta política ou sobre como alguma parte da extensão funciona — escreva para nós em <strong><a href="mailto:reinkode@gmail.com">reinkode@gmail.com</a></strong>.',
+      's9.cta': 'Voltar ao início',
+      'footer.disclaimer1': 'A Skool Master Suite não é afiliada ao Skool.com.',
+      'footer.disclaimer2': 'Este documento descreve o comportamento real do código na data da versão indicada acima.'
+    },
+    zh: {
+      'nav.home': '首頁', 'nav.features': '功能', 'nav.testimonials': '使用者評價', 'nav.faq': '常見問題',
+      'doc.eyebrow': '隱私權政策',
+      'doc.subtitle': '這個擴充功能會讀取、傳送與儲存哪些內容——以程式碼實際的行為來說明,而不是套用制式的法律範本。',
+      'doc.meta.version': '版本 <b>0.0.1(Beta)</b>',
+      'doc.meta.effective': '生效日期 <b>2026年9月3日</b>',
+      'doc.meta.server': '自有伺服器:<b>無</b>',
+      'toc.label': '本頁內容',
+      'toc.s1': '快速摘要', 'toc.s2': '這個擴充功能做什麼', 'toc.s3': '權限', 'toc.s4': '哪些內容會離開你的瀏覽器',
+      'toc.s5': '你的裝置上儲存了什麼', 'toc.s6': '我們不會做的事', 'toc.s7': '你的控制選項', 'toc.s8': '變更', 'toc.s9': '聯絡我們',
+      's1.title': '快速摘要',
+      's1.i1.title': '沒有我們自己的伺服器。',
+      's1.i1.desc': '一切都在你的瀏覽器中運行。這個專案裡沒有任何人能看到你的貼文、留言或訊息。',
+      's1.i2.title': '只有兩個外部連線目的地。',
+      's1.i2.desc': '你翻譯的文字會傳送到 Google 翻譯的公開 API;社群的網址代稱會傳送到 skool-finder.com。除此之外不會有任何內容離開你的裝置。',
+      's1.i3.title': '完全不出售或轉讓資料。',
+      's1.i3.desc': '沒有分析工具、沒有廣告商,在你自己的瀏覽器之外任何地方都沒有使用者檔案。',
+      's1.i4.title': '一切都是可選且可還原的。',
+      's1.i4.desc': '每項功能都可以在設定中個別關閉,解除安裝擴充功能會清除它儲存的所有內容。',
+      's2.title': '這個擴充功能做什麼',
+      's2.p1': 'Skool Master Suite 會在你已經開啟的<strong>skool.com</strong>頁面上新增功能:翻譯貼文與留言、書籤、社群活動提醒、瀏覽器通知、深色模式、聊天已讀確認、公開的社群統計數據,以及其他一些編輯與整理工具。每一項都是獨立的模組,你可以個別關閉而不影響其他功能。',
+      's3.title': '請求的權限及原因',
+      's3.p1': '擴充功能的清單檔只宣告上述功能所需的最低限度權限。沒有任何權限是「以防萬一」才要求的。',
+      's3.th1': '權限', 's3.th2': '類型', 's3.th3': '用途',
+      'tag.required': '必要', 'tag.optional': '選用',
+      's3.r1.desc': '在此瀏覽器中儲存你的設定、書籤與翻譯快取。',
+      's3.r2.desc': '排程社群活動提醒。Manifest V3 沒有其他方式可以在幾分鐘或幾小時後執行、且能在 Service Worker 關閉後仍然存活的工作。',
+      's3.r3.desc': '顯示瀏覽器通知。安裝時不會請求此權限——只有當你在設定中啟用「瀏覽器通知」時才會請求,若你拒絕,除非你自己重新開啟,否則不會再次詢問。',
+      's3.r4.desc': '讀取你以登入使用者身分已開啟的 Skool 頁面內容,以便將擴充功能的功能插入其中。',
+      's3.r5.desc': '將你要求翻譯的文字傳送到 Google 翻譯的公開端點。詳情見下方。',
+      's3.r6.desc': '查詢某個社群的公開排名。詳情見下方。',
+      's4.title': '哪些內容會離開你的瀏覽器',
+      's4.p1': '只有兩個請求會傳送到 skool.com 之外,而且兩者都僅限於觸發該功能所嚴格需要的內容。',
+      's4.h3.translate': '翻譯 — translate.googleapis.com',
+      's4.e1.p1': '這與 translate.google.com 網站本身使用的公開免費端點相同——沒有 API 金鑰、沒有帳號,也不會附帶任何 Skool 的工作階段 Cookie。只有當下正在翻譯的文字片段(一篇貼文、一則留言,或你正在輸入的內容)會被傳送。',
+      's4.e1.p2': '傳送前,@提及與社群名稱都會被遮罩,以免成為翻譯文字的一部分。由於這是非官方端點,Google 可能會在未事先通知的情況下限制或變更它——若發生這種情況,翻譯只會失敗,原始內容則維持不變。',
+      's4.h3.stats': '社群統計 — skool-finder.com',
+      's4.e2.p1': '這是一個公開、無需驗證的請求,針對已顯示在你開啟的 Skool 網址中的社群識別碼——與任何訪客直接前往該網址所看到的內容相同。不會傳送任何 Cookie 或帳號資料。',
+      's5.title': '你的裝置上儲存了什麼',
+      's5.p1': '其餘所有內容都保留在擴充功能自己的儲存空間中,也就是你的瀏覽器裡。<span class="tag tag-local">local</span> 代表這些內容永遠不會離開這台裝置;<span class="tag tag-sync">sync</span> 代表你自己的 Chrome 或 Firefox 帳號會在你的裝置之間同步這些內容,就像同步任何其他設定一樣——這個專案沒有辦法在傳輸過程中讀取這些資料。',
+      's5.th1': '功能', 's5.th2': '儲存內容', 's5.th3': '範圍',
+      's5.r1.label': '一般設定', 's5.r1.desc': '介面語言、已啟用的模組、側邊欄大小與檢視方式。',
+      's5.r2.label': '翻譯', 's5.r2.desc': '你排除翻譯的語言、每個社群偏好的語言,以及已完成翻譯的快取——原始文字會以雜湊值形式儲存,絕不會以明文儲存。',
+      's5.r3.label': '書籤', 's5.r3.desc': '你選擇儲存的貼文與留言。',
+      's5.r4.label': '已釘選的社群', 's5.r4.desc': '你在側邊欄中整理與分組社群的方式。',
+      's5.r5.label': '通知', 's5.r5.desc': '你依類別設定的偏好、已排程的提醒,以及已讀取的 id,以避免重複提醒。訊息內文絕不會被儲存——請參閱下方的<a href="#contacto">通知說明</a>。',
+      's5.r6.label': '貼文與聊天已讀狀態', 's5.r6.desc': '你已經看過哪些貼文與訊息,以免再次被標示為新內容。',
+      's5.r7.label': '深色模式', 's5.r7.desc': '你的視覺主題偏好設定。',
+      's5.p2': '通知功能有自己詳細的說明文件,收錄於專案的程式碼庫中(<code>docs/PRIVACY-NOTIFICATIONS.md</code>),內含完整的儲存內容與保存時間對照表。',
+      's6.title': '我們不會做的事',
+      's6.i1': '我們不會經營任何自己的伺服器或資料庫——根本沒有地方可以累積你的資訊。',
+      's6.i2': '我們不會加入任何第三方分析工具、追蹤像素或廣告 SDK。',
+      's6.i3': '我們不會向任何人出售、出租或分享資料。',
+      's6.i4': '我們不會讀取你尚未透過自己的 Skool 工作階段取得存取權限的社群或頁面。',
+      's6.i5': '我們不會將密碼、工作階段 Cookie 或權杖傳送給 Google 翻譯或 skool-finder.com——這些請求不會攜帶你的任何 Skool 身分資訊。',
+      's6.i6': '我們不會以明文儲存你聊天訊息的內容;若需要避免重複,僅會儲存雜湊值。',
+      's7.title': '你的控制選項',
+      's7.i1': '<strong>關閉單一模組:</strong>每項功能都可在擴充功能設定中個別關閉,不會影響其他功能。',
+      's7.i2': '<strong>撤銷通知權限:</strong>在設定中關閉「瀏覽器通知」,或直接在瀏覽器的擴充功能設定中移除 <span class="chip">notifications</span> 權限。',
+      's7.i3': '<strong>清除翻譯快取或你的書籤:</strong>可在每項功能各自的設定中進行清除。',
+      's7.i4': '<strong>一次清除所有內容:</strong>解除安裝擴充功能會自動刪除它所儲存的一切,因為所有資料都不存在於你的瀏覽器之外。',
+      's8.title': '本政策的變更',
+      's8.p1': '如果擴充功能傳送或儲存的內容有所變更,本頁內容會隨之更新,頁首的「生效日期」也會一併更新。我們不會進行任何未告知的變更:若未來版本開始將新內容傳送到任何地方,都會在正式上線前於此說明。',
+      's9.title': '聯絡我們',
+      's9.contact': '若對本政策或擴充功能任何部分的運作方式有疑問——歡迎寫信至 <strong><a href="mailto:reinkode@gmail.com">reinkode@gmail.com</a></strong>。',
+      's9.cta': '返回首頁',
+      'footer.disclaimer1': 'Skool Master Suite 與 Skool.com 並無任何關聯。',
+      'footer.disclaimer2': '本文件所描述的內容,反映截至上方所列版本時程式碼的實際行為。'
+    },
+    it: {
+      'nav.home': 'Home', 'nav.features': 'Funzionalità', 'nav.testimonials': 'Testimonianze', 'nav.faq': 'FAQ',
+      'doc.eyebrow': 'Informativa sulla privacy',
+      'doc.subtitle': 'Cosa legge, invia e salva questa estensione — spiegato in base a ciò che il codice fa realmente, non con un modello legale generico.',
+      'doc.meta.version': 'Versione <b>0.0.1 (Beta)</b>',
+      'doc.meta.effective': 'In vigore dal <b>3 settembre 2026</b>',
+      'doc.meta.server': 'Server proprio: <b>nessuno</b>',
+      'toc.label': 'In questa pagina',
+      'toc.s1': 'Riepilogo rapido', 'toc.s2': 'Cosa fa l\'estensione', 'toc.s3': 'Autorizzazioni', 'toc.s4': 'Cosa esce dal tuo browser',
+      'toc.s5': 'Cosa viene salvato sul tuo dispositivo', 'toc.s6': 'Cosa non facciamo', 'toc.s7': 'I tuoi controlli', 'toc.s8': 'Modifiche', 'toc.s9': 'Contatti',
+      's1.title': 'Riepilogo rapido',
+      's1.i1.title': 'Non esiste un server di nostra proprietà.',
+      's1.i1.desc': 'Tutto viene eseguito nel tuo browser. Nessuno di questo progetto vede i tuoi post, commenti o messaggi.',
+      's1.i2.title': 'Solo due destinazioni esterne.',
+      's1.i2.desc': 'Il testo che traduci va all\'API pubblica di Google Translate; lo slug di una community va a skool-finder.com. Nient\'altro esce dal tuo dispositivo.',
+      's1.i3.title': 'Zero vendita o cessione di dati.',
+      's1.i3.desc': 'Nessuna analisi, nessun inserzionista, nessun profilo utente ovunque al di fuori del tuo browser.',
+      's1.i4.title': 'Tutto è facoltativo e reversibile.',
+      's1.i4.desc': 'Ogni funzionalità si disattiva singolarmente dalle impostazioni, e disinstallare l\'estensione cancella tutto ciò che ha salvato.',
+      's2.title': 'Cosa fa l\'estensione',
+      's2.p1': 'Skool Master Suite aggiunge funzionalità alle pagine di <strong>skool.com</strong> che hai già aperte: traduzione di post e commenti, segnalibri, promemoria degli eventi della community, notifiche del browser, modalità scura, conferme di lettura in chat, statistiche pubbliche della community e alcuni altri strumenti di modifica e organizzazione. Ognuna è un modulo indipendente che puoi disattivare senza influire sulle altre.',
+      's3.title': 'Autorizzazioni richieste e perché',
+      's3.p1': 'Il manifest dell\'estensione dichiara il minimo indispensabile per quanto sopra. Nulla viene richiesto "per sicurezza".',
+      's3.th1': 'Autorizzazione', 's3.th2': 'Tipo', 's3.th3': 'A cosa serve',
+      'tag.required': 'Obbligatoria', 'tag.optional': 'Facoltativa',
+      's3.r1.desc': 'Salvare le tue impostazioni, i segnalibri e la cache di traduzione in questo browser.',
+      's3.r2.desc': 'Programmare i promemoria degli eventi della community. Manifest V3 non offre altro modo per eseguire qualcosa minuti o ore dopo che sopravviva alla chiusura del service worker.',
+      's3.r3.desc': 'Mostrare le notifiche del browser. Non viene richiesta all\'installazione — solo quando attivi "Notifiche del browser" nelle impostazioni, e se rifiuti, non viene richiesta di nuovo a meno che tu stesso non la attivi.',
+      's3.r4.desc': 'Leggere il contenuto delle pagine Skool che hai già aperto come utente connesso, per inserirvi le funzionalità dell\'estensione.',
+      's3.r5.desc': 'Inviare il testo che chiedi di tradurre all\'endpoint pubblico di Google Translate. Dettagli qui sotto.',
+      's3.r6.desc': 'Consultare la classifica pubblica di una community. Dettagli qui sotto.',
+      's4.title': 'Cosa esce dal tuo browser',
+      's4.p1': 'Solo due richieste escono al di fuori di skool.com, ed entrambe sono limitate a ciò che è strettamente necessario per la funzionalità che le attiva.',
+      's4.h3.translate': 'Traduzione — translate.googleapis.com',
+      's4.e1.p1': 'È lo stesso endpoint pubblico e gratuito usato dalla pagina translate.google.com stessa — senza chiave API, senza account, senza cookie di sessione Skool allegati. Viaggia solo il frammento di testo che si sta traducendo in quel momento (un post, un commento o ciò che stai scrivendo).',
+      's4.e1.p2': 'Prima dell\'invio, le @menzioni e il nome della community vengono mascherati in modo che non facciano parte del testo tradotto. Trattandosi di un endpoint non ufficiale, Google può limitarlo o modificarlo senza preavviso — se ciò accade, la traduzione fallisce semplicemente e il contenuto originale resta invariato.',
+      's4.h3.stats': 'Statistiche della community — skool-finder.com',
+      's4.e2.p1': 'Una richiesta pubblica, senza autenticazione, all\'identificativo della community già visibile nell\'URL Skool che hai aperto — la stessa cosa che vedrebbe qualsiasi visitatore accedendo direttamente a quell\'indirizzo. Non vengono inviati cookie né dati dell\'account.',
+      's5.title': 'Cosa viene salvato sul tuo dispositivo',
+      's5.p1': 'Tutto il resto rimane nell\'archiviazione propria dell\'estensione, nel tuo browser. <span class="tag tag-local">local</span> significa che non esce mai da questo dispositivo; <span class="tag tag-sync">sync</span> significa che il tuo account Chrome o Firefox lo sincronizza tra i tuoi dispositivi, esattamente come fa con qualsiasi altra impostazione — questo progetto non ha modo di leggere quel dato in transito.',
+      's5.th1': 'Funzionalità', 's5.th2': 'Cosa salva', 's5.th3': 'Ambito',
+      's5.r1.label': 'Impostazioni generali', 's5.r1.desc': 'Lingua dell\'interfaccia, moduli attivati, dimensione e vista del pannello laterale.',
+      's5.r2.label': 'Traduzione', 's5.r2.desc': 'Lingue che escludi dalla traduzione, lingua preferita per community, e una cache delle traduzioni già effettuate — il testo originale viene salvato come hash, mai in chiaro.',
+      's5.r3.label': 'Segnalibri', 's5.r3.desc': 'I post e i commenti che decidi di salvare.',
+      's5.r4.label': 'Community fissate', 's5.r4.desc': 'Come organizzi e raggruppi le tue community nella barra laterale.',
+      's5.r5.label': 'Notifiche', 's5.r5.desc': 'Le tue preferenze per categoria, i promemoria programmati e gli id già visti per non ripetere gli avvisi. Il testo dei messaggi non viene mai salvato — vedi la <a href="#contacto">nota sulle notifiche</a> qui sotto.',
+      's5.r6.label': 'Stato di lettura di post e chat', 's5.r6.desc': 'Quali post e messaggi hai già visto, per non contrassegnarli di nuovo come nuovi.',
+      's5.r7.label': 'Modalità scura', 's5.r7.desc': 'La tua preferenza di tema visivo.',
+      's5.p2': 'La funzionalità di notifiche ha una propria nota dettagliata, inclusa nel repository del progetto (<code>docs/PRIVACY-NOTIFICATIONS.md</code>), con la tabella completa di cosa viene salvato e per quanto tempo.',
+      's6.title': 'Cosa non facciamo',
+      's6.i1': 'Non gestiamo alcun server o database di nostra proprietà — non c\'è dove accumulare le tue informazioni.',
+      's6.i2': 'Non includiamo analisi di terze parti, pixel di tracciamento o SDK pubblicitari.',
+      's6.i3': 'Non vendiamo, affittiamo né condividiamo dati con nessuno.',
+      's6.i4': 'Non leggiamo community o pagine a cui non hai già accesso con la tua sessione Skool.',
+      's6.i5': 'Non inviamo password, cookie di sessione o token a Google Translate o skool-finder.com — queste richieste non trasportano alcuna tua identità Skool.',
+      's6.i6': 'Non salviamo il contenuto dei tuoi messaggi di chat in chiaro; dove è necessario evitare duplicati, viene salvato solo un hash.',
+      's7.title': 'I tuoi controlli',
+      's7.i1': '<strong>Disattivare un modulo:</strong> ogni funzionalità si disattiva singolarmente dalle impostazioni dell\'estensione, senza influire sulle altre.',
+      's7.i2': '<strong>Revocare le notifiche:</strong> disattiva "Notifiche del browser" nelle impostazioni, oppure rimuovi l\'autorizzazione <span class="chip">notifications</span> direttamente dalle impostazioni delle estensioni del tuo browser.',
+      's7.i3': '<strong>Cancellare la cache di traduzione o i tuoi segnalibri:</strong> disponibile dalle impostazioni proprie di ogni funzionalità.',
+      's7.i4': '<strong>Cancellare tutto in una volta:</strong> disinstallare l\'estensione elimina automaticamente tutto ciò che ha salvato, perché nulla vive al di fuori del tuo browser.',
+      's8.title': 'Modifiche a questa informativa',
+      's8.p1': 'Se ciò che l\'estensione invia o salva cambia, questa stessa pagina viene aggiornata e la data "In vigore dal" nell\'intestazione cambia di conseguenza. Non ci sono modifiche silenziose: se una versione futura inizia a inviare qualcosa di nuovo da qualche parte, viene descritto qui prima di arrivare in produzione.',
+      's9.title': 'Contatti',
+      's9.contact': 'Domande su questa informativa o su come funziona qualche parte dell\'estensione — scrivici a <strong><a href="mailto:reinkode@gmail.com">reinkode@gmail.com</a></strong>.',
+      's9.cta': 'Torna alla home',
+      'footer.disclaimer1': 'Skool Master Suite non è affiliata a Skool.com.',
+      'footer.disclaimer2': 'Questo documento descrive il comportamento reale del codice alla data della versione indicata sopra.'
+    },
+    vi: {
+      'nav.home': 'Trang chủ', 'nav.features': 'Tính năng', 'nav.testimonials': 'Đánh giá', 'nav.faq': 'Câu hỏi thường gặp',
+      'doc.eyebrow': 'Chính sách bảo mật',
+      'doc.subtitle': 'Những gì tiện ích này đọc, gửi đi và lưu trữ — được giải thích dựa trên những gì mã nguồn thực sự làm, không phải một mẫu pháp lý chung chung.',
+      'doc.meta.version': 'Phiên bản <b>0.0.1 (Beta)</b>',
+      'doc.meta.effective': 'Có hiệu lực từ <b>ngày 3 tháng 9 năm 2026</b>',
+      'doc.meta.server': 'Máy chủ riêng: <b>không có</b>',
+      'toc.label': 'Trong trang này',
+      'toc.s1': 'Tóm tắt nhanh', 'toc.s2': 'Tiện ích này làm gì', 'toc.s3': 'Quyền truy cập', 'toc.s4': 'Những gì rời khỏi trình duyệt của bạn',
+      'toc.s5': 'Những gì được lưu trên thiết bị của bạn', 'toc.s6': 'Những điều chúng tôi không làm', 'toc.s7': 'Quyền kiểm soát của bạn', 'toc.s8': 'Thay đổi', 'toc.s9': 'Liên hệ',
+      's1.title': 'Tóm tắt nhanh',
+      's1.i1.title': 'Không có máy chủ nào của riêng chúng tôi.',
+      's1.i1.desc': 'Mọi thứ đều chạy trên trình duyệt của bạn. Không ai trong dự án này thấy được bài viết, bình luận hay tin nhắn của bạn.',
+      's1.i2.title': 'Chỉ có hai điểm đến bên ngoài.',
+      's1.i2.desc': 'Văn bản bạn dịch sẽ được gửi đến API công khai của Google Dịch; slug của một cộng đồng sẽ được gửi đến skool-finder.com. Không có gì khác rời khỏi thiết bị của bạn.',
+      's1.i3.title': 'Không bán hay chuyển nhượng dữ liệu.',
+      's1.i3.desc': 'Không có công cụ phân tích, không có nhà quảng cáo, không có hồ sơ người dùng ở bất kỳ đâu ngoài trình duyệt của chính bạn.',
+      's1.i4.title': 'Mọi thứ đều tùy chọn và có thể hoàn tác.',
+      's1.i4.desc': 'Mỗi tính năng có thể được tắt riêng lẻ từ phần cài đặt, và gỡ cài đặt tiện ích sẽ xóa toàn bộ những gì nó đã lưu trữ.',
+      's2.title': 'Tiện ích này làm gì',
+      's2.p1': 'Skool Master Suite bổ sung các tính năng lên các trang <strong>skool.com</strong> mà bạn đã mở sẵn: dịch bài viết và bình luận, đánh dấu, nhắc nhở sự kiện cộng đồng, thông báo trình duyệt, chế độ tối, xác nhận đã đọc trong trò chuyện, thống kê công khai của cộng đồng, và một số tiện ích chỉnh sửa và sắp xếp khác. Mỗi tính năng là một mô-đun độc lập mà bạn có thể tắt mà không ảnh hưởng đến các tính năng khác.',
+      's3.title': 'Các quyền yêu cầu và lý do',
+      's3.p1': 'Tệp manifest của tiện ích chỉ khai báo mức tối thiểu cần thiết cho những điều trên. Không có gì được yêu cầu "để phòng hờ".',
+      's3.th1': 'Quyền', 's3.th2': 'Loại', 's3.th3': 'Dùng để làm gì',
+      'tag.required': 'Bắt buộc', 'tag.optional': 'Tùy chọn',
+      's3.r1.desc': 'Lưu trữ cài đặt, đánh dấu và bộ nhớ đệm dịch thuật của bạn trong trình duyệt này.',
+      's3.r2.desc': 'Lên lịch nhắc nhở sự kiện cộng đồng. Manifest V3 không có cách nào khác để chạy một tác vụ sau vài phút hoặc vài giờ mà vẫn tồn tại sau khi service worker bị đóng.',
+      's3.r3.desc': 'Hiển thị thông báo trình duyệt. Không được yêu cầu khi cài đặt — chỉ khi bạn bật "Thông báo trình duyệt" trong phần cài đặt, và nếu bạn từ chối, quyền này sẽ không được hỏi lại trừ khi chính bạn bật lại.',
+      's3.r4.desc': 'Đọc nội dung các trang Skool mà bạn đã mở sẵn với tư cách người dùng đã đăng nhập, để chèn các tính năng của tiện ích vào đó.',
+      's3.r5.desc': 'Gửi văn bản bạn yêu cầu dịch đến điểm cuối công khai của Google Dịch. Xem chi tiết bên dưới.',
+      's3.r6.desc': 'Tra cứu bảng xếp hạng công khai của một cộng đồng. Xem chi tiết bên dưới.',
+      's4.title': 'Những gì rời khỏi trình duyệt của bạn',
+      's4.p1': 'Chỉ có hai yêu cầu đi ra ngoài phạm vi skool.com, và cả hai đều giới hạn ở mức cần thiết cho tính năng kích hoạt chúng.',
+      's4.h3.translate': 'Dịch thuật — translate.googleapis.com',
+      's4.e1.p1': 'Đây là cùng một điểm cuối công khai, miễn phí mà chính trang translate.google.com sử dụng — không có khóa API, không có tài khoản, không kèm cookie phiên đăng nhập Skool. Chỉ có đoạn văn bản đang được dịch tại thời điểm đó (một bài viết, một bình luận, hoặc những gì bạn đang gõ) được gửi đi.',
+      's4.e1.p2': 'Trước khi gửi, các lượt @nhắc tên và tên cộng đồng sẽ được che đi để không trở thành một phần của văn bản đã dịch. Vì đây là điểm cuối không chính thức, Google có thể giới hạn hoặc thay đổi nó mà không báo trước — nếu điều đó xảy ra, việc dịch chỉ đơn giản là thất bại và nội dung gốc vẫn giữ nguyên như cũ.',
+      's4.h3.stats': 'Thống kê cộng đồng — skool-finder.com',
+      's4.e2.p1': 'Một yêu cầu công khai, không cần xác thực, đến mã định danh cộng đồng vốn đã hiển thị trong URL Skool mà bạn đang mở — giống hệt những gì bất kỳ khách truy cập nào cũng thấy khi truy cập trực tiếp địa chỉ đó. Không có cookie hay dữ liệu tài khoản nào được gửi đi.',
+      's5.title': 'Những gì được lưu trên thiết bị của bạn',
+      's5.p1': 'Mọi thứ khác đều nằm trong bộ nhớ riêng của tiện ích, trên trình duyệt của bạn. <span class="tag tag-local">local</span> nghĩa là không bao giờ rời khỏi thiết bị này; <span class="tag tag-sync">sync</span> nghĩa là tài khoản Chrome hoặc Firefox của chính bạn sẽ đồng bộ nó giữa các thiết bị, giống hệt như với bất kỳ cài đặt nào khác — dự án này không có cách nào đọc được dữ liệu đó trong quá trình truyền tải.',
+      's5.th1': 'Tính năng', 's5.th2': 'Lưu trữ gì', 's5.th3': 'Phạm vi',
+      's5.r1.label': 'Cài đặt chung', 's5.r1.desc': 'Ngôn ngữ giao diện, các mô-đun đã bật, kích thước và chế độ xem của thanh bên.',
+      's5.r2.label': 'Dịch thuật', 's5.r2.desc': 'Các ngôn ngữ bạn loại trừ khỏi việc dịch, ngôn ngữ ưu tiên theo từng cộng đồng, và bộ nhớ đệm các bản dịch đã thực hiện — văn bản gốc được lưu dưới dạng mã băm, không bao giờ ở dạng văn bản thuần.',
+      's5.r3.label': 'Đánh dấu', 's5.r3.desc': 'Các bài viết và bình luận mà bạn chọn lưu lại.',
+      's5.r4.label': 'Cộng đồng đã ghim', 's5.r4.desc': 'Cách bạn sắp xếp và nhóm các cộng đồng của mình trong thanh bên.',
+      's5.r5.label': 'Thông báo', 's5.r5.desc': 'Tùy chọn của bạn theo từng danh mục, các lời nhắc đã lên lịch, và các id đã xem để không lặp lại thông báo. Nội dung tin nhắn không bao giờ được lưu trữ — xem <a href="#contacto">ghi chú về thông báo</a> bên dưới.',
+      's5.r6.label': 'Trạng thái đã đọc bài viết và trò chuyện', 's5.r6.desc': 'Những bài viết và tin nhắn nào bạn đã xem, để không đánh dấu chúng là mới một lần nữa.',
+      's5.r7.label': 'Chế độ tối', 's5.r7.desc': 'Tùy chọn giao diện hiển thị của bạn.',
+      's5.p2': 'Tính năng thông báo có ghi chú chi tiết riêng, được đưa vào kho lưu trữ của dự án (<code>docs/PRIVACY-NOTIFICATIONS.md</code>), với bảng đầy đủ về những gì được lưu trữ và trong bao lâu.',
+      's6.title': 'Những điều chúng tôi không làm',
+      's6.i1': 'Chúng tôi không vận hành bất kỳ máy chủ hay cơ sở dữ liệu nào của riêng mình — không có nơi nào để tích lũy thông tin của bạn.',
+      's6.i2': 'Chúng tôi không tích hợp công cụ phân tích của bên thứ ba, pixel theo dõi hay SDK quảng cáo.',
+      's6.i3': 'Chúng tôi không bán, cho thuê hay chia sẻ dữ liệu với bất kỳ ai.',
+      's6.i4': 'Chúng tôi không đọc các cộng đồng hay trang mà bạn chưa có quyền truy cập bằng chính phiên đăng nhập Skool của mình.',
+      's6.i5': 'Chúng tôi không gửi mật khẩu, cookie phiên đăng nhập hay token đến Google Dịch hoặc skool-finder.com — các yêu cầu đó không mang theo bất kỳ danh tính Skool nào của bạn.',
+      's6.i6': 'Chúng tôi không lưu trữ nội dung tin nhắn trò chuyện của bạn dưới dạng văn bản thuần; ở những nơi cần tránh trùng lặp, chỉ một mã băm được lưu trữ.',
+      's7.title': 'Quyền kiểm soát của bạn',
+      's7.i1': '<strong>Tắt một mô-đun:</strong> mỗi tính năng được tắt riêng lẻ từ phần cài đặt của tiện ích, không ảnh hưởng đến các tính năng khác.',
+      's7.i2': '<strong>Thu hồi quyền thông báo:</strong> tắt "Thông báo trình duyệt" trong phần cài đặt, hoặc gỡ bỏ quyền <span class="chip">notifications</span> trực tiếp từ phần cài đặt tiện ích của trình duyệt.',
+      's7.i3': '<strong>Xóa bộ nhớ đệm dịch thuật hoặc các mục đánh dấu của bạn:</strong> có sẵn trong phần cài đặt riêng của từng tính năng.',
+      's7.i4': '<strong>Xóa mọi thứ cùng lúc:</strong> gỡ cài đặt tiện ích sẽ tự động xóa mọi thứ nó đã lưu trữ, vì không có gì tồn tại bên ngoài trình duyệt của bạn.',
+      's8.title': 'Thay đổi đối với chính sách này',
+      's8.p1': 'Nếu những gì tiện ích gửi đi hoặc lưu trữ thay đổi, chính trang này sẽ được cập nhật và ngày "Có hiệu lực từ" ở phần đầu trang cũng thay đổi theo. Không có thay đổi nào diễn ra âm thầm: nếu một phiên bản trong tương lai bắt đầu gửi điều gì đó mới đến bất kỳ đâu, điều đó sẽ được mô tả ở đây trước khi được đưa vào sử dụng chính thức.',
+      's9.title': 'Liên hệ',
+      's9.contact': 'Có câu hỏi về chính sách này hoặc cách một phần nào đó của tiện ích hoạt động — hãy viết thư cho chúng tôi tại <strong><a href="mailto:reinkode@gmail.com">reinkode@gmail.com</a></strong>.',
+      's9.cta': 'Quay về trang chủ',
+      'footer.disclaimer1': 'Skool Master Suite không liên kết với Skool.com.',
+      'footer.disclaimer2': 'Tài liệu này mô tả hành vi thực tế của mã nguồn tại thời điểm của phiên bản được ghi ở trên.'
+    },
+    tr: {
+      'nav.home': 'Ana Sayfa', 'nav.features': 'Özellikler', 'nav.testimonials': 'Yorumlar', 'nav.faq': 'SSS',
+      'doc.eyebrow': 'Gizlilik Politikası',
+      'doc.subtitle': 'Bu uzantının okuduğu, gönderdiği ve sakladığı şeyler — genel bir hukuki şablonla değil, kodun gerçekte yaptığı işle açıklanmıştır.',
+      'doc.meta.version': 'Sürüm <b>0.0.1 (Beta)</b>',
+      'doc.meta.effective': '<b>3 Eylül 2026</b> tarihinden itibaren geçerli',
+      'doc.meta.server': 'Kendi sunucusu: <b>yok</b>',
+      'toc.label': 'Bu sayfada',
+      'toc.s1': 'Hızlı özet', 'toc.s2': 'Uzantı ne yapar', 'toc.s3': 'İzinler', 'toc.s4': 'Tarayıcından ne çıkıyor',
+      'toc.s5': 'Cihazında ne saklanıyor', 'toc.s6': 'Yapmadıklarımız', 'toc.s7': 'Senin kontrollerin', 'toc.s8': 'Değişiklikler', 'toc.s9': 'İletişim',
+      's1.title': 'Hızlı özet',
+      's1.i1.title': 'Kendimize ait bir sunucu yok.',
+      's1.i1.desc': 'Her şey tarayıcında çalışır. Bu projeden hiç kimse gönderilerini, yorumlarını veya mesajlarını göremez.',
+      's1.i2.title': 'Yalnızca iki dış hedef var.',
+      's1.i2.desc': 'Çevirdiğin metin Google Çeviri\'nin herkese açık API\'sine gider; bir topluluğun slug\'ı skool-finder.com\'a gider. Cihazından başka hiçbir şey çıkmaz.',
+      's1.i3.title': 'Sıfır veri satışı veya devri.',
+      's1.i3.desc': 'Kendi tarayıcının dışında hiçbir yerde analiz aracı, reklamveren veya kullanıcı profili yok.',
+      's1.i4.title': 'Her şey isteğe bağlı ve geri alınabilir.',
+      's1.i4.desc': 'Her özellik ayarlardan tek tek kapatılabilir ve uzantıyı kaldırmak sakladığı her şeyi siler.',
+      's2.title': 'Uzantı ne yapar',
+      's2.p1': 'Skool Master Suite, zaten açık olan <strong>skool.com</strong> sayfalarına özellikler ekler: gönderi ve yorum çevirisi, yer imleri, topluluk etkinliği hatırlatmaları, tarayıcı bildirimleri, karanlık mod, sohbet okundu onayları, herkese açık topluluk istatistikleri ve birkaç düzenleme/organizasyon aracı daha. Her biri, diğerlerini etkilemeden kapatabileceğin bağımsız bir modüldür.',
+      's3.title': 'İstenen izinler ve nedenleri',
+      's3.p1': 'Uzantının manifest dosyası, yukarıdakiler için gereken asgari düzeyi bildirir. Hiçbir şey "her ihtimale karşı" istenmez.',
+      's3.th1': 'İzin', 's3.th2': 'Tür', 's3.th3': 'Ne için kullanılıyor',
+      'tag.required': 'Gerekli', 'tag.optional': 'İsteğe Bağlı',
+      's3.r1.desc': 'Ayarlarını, yer imlerini ve çeviri önbelleğini bu tarayıcıda saklamak için.',
+      's3.r2.desc': 'Topluluk etkinliği hatırlatmalarını zamanlamak için. Manifest V3, service worker kapandıktan sonra da hayatta kalacak, dakikalar ya da saatler sonra çalışacak bir şeyi başka türlü çalıştırmanın yolunu sunmaz.',
+      's3.r3.desc': 'Tarayıcı bildirimlerini göstermek için. Kurulumda istenmez — yalnızca ayarlarda "Tarayıcı Bildirimleri"ni etkinleştirdiğinde istenir ve reddedersen, sen kendin tekrar açmadıkça bir daha sorulmaz.',
+      's3.r4.desc': 'Uzantının özelliklerini üzerlerine eklemek için, oturum açmış kullanıcı olarak zaten açık olan Skool sayfalarının içeriğini okumak için.',
+      's3.r5.desc': 'Çevirmesini istediğin metni Google Çeviri\'nin herkese açık uç noktasına göndermek için. Ayrıntılar aşağıda.',
+      's3.r6.desc': 'Bir topluluğun herkese açık sıralamasını görüntülemek için. Ayrıntılar aşağıda.',
+      's4.title': 'Tarayıcından ne çıkıyor',
+      's4.p1': 'skool.com dışına yalnızca iki istek gider ve her ikisi de o özelliği tetikleyen işlem için kesinlikle gerekli olanla sınırlıdır.',
+      's4.h3.translate': 'Çeviri — translate.googleapis.com',
+      's4.e1.p1': 'Bu, translate.google.com\'un kendisinin kullandığı aynı ücretsiz, herkese açık uç noktadır — API anahtarı yok, hesap yok, eklenmiş Skool oturum çerezi yok. Yalnızca o anda çevrilmekte olan metin parçası (bir gönderi, bir yorum veya yazmakta olduğun şey) gönderilir.',
+      's4.e1.p2': 'Göndermeden önce, @bahsetmeler ve topluluk adı, çevrilen metnin parçası olmasınlar diye maskelenir. Resmi olmayan bir uç nokta olduğundan, Google onu önceden haber vermeden sınırlayabilir veya değiştirebilir — bu olursa, çeviri basitçe başarısız olur ve orijinal içerik olduğu gibi kalır.',
+      's4.h3.stats': 'Topluluk istatistikleri — skool-finder.com',
+      's4.e2.p1': 'Açık olan Skool URL\'sinde zaten görünen topluluk tanımlayıcısına yapılan, kimlik doğrulaması gerektirmeyen herkese açık bir istek — bu adrese doğrudan giden herhangi bir ziyaretçinin göreceğiyle aynı şey. Hiçbir çerez veya hesap verisi gönderilmez.',
+      's5.title': 'Cihazında ne saklanıyor',
+      's5.p1': 'Geri kalan her şey, tarayıcındaki uzantının kendi deposunda kalır. <span class="tag tag-local">local</span>, bunun bu cihazdan asla çıkmadığı anlamına gelir; <span class="tag tag-sync">sync</span> ise, kendi Chrome veya Firefox hesabının bunu diğer ayarlarında yaptığı gibi cihazların arasında senkronize ettiği anlamına gelir — bu proje, o veriyi aktarım sırasında okuyacak bir yola sahip değildir.',
+      's5.th1': 'Özellik', 's5.th2': 'Ne saklıyor', 's5.th3': 'Kapsam',
+      's5.r1.label': 'Genel ayarlar', 's5.r1.desc': 'Arayüz dili, etkinleştirilen modüller, kenar çubuğu boyutu ve görünümü.',
+      's5.r2.label': 'Çeviri', 's5.r2.desc': 'Çeviriden hariç tuttuğun diller, topluluk başına tercih edilen dil ve zaten yapılmış çevirilerin önbelleği — orijinal metin asla düz metin olarak değil, bir hash olarak saklanır.',
+      's5.r3.label': 'Yer imleri', 's5.r3.desc': 'Kaydetmeyi seçtiğin gönderiler ve yorumlar.',
+      's5.r4.label': 'Sabitlenmiş topluluklar', 's5.r4.desc': 'Topluluklarını kenar çubuğunda nasıl düzenleyip gruplandırdığın.',
+      's5.r5.label': 'Bildirimler', 's5.r5.desc': 'Kategori bazındaki tercihlerin, zamanlanmış hatırlatmaların ve uyarıların tekrarlanmaması için zaten görülen kimlikler. Mesaj metni asla saklanmaz — aşağıdaki <a href="#contacto">bildirimler notuna</a> bak.',
+      's5.r6.label': 'Gönderi ve sohbet okuma durumu', 's5.r6.desc': 'Hangi gönderileri ve mesajları zaten gördüğün, böylece tekrar yeni olarak işaretlenmezler.',
+      's5.r7.label': 'Karanlık mod', 's5.r7.desc': 'Görsel tema tercihin.',
+      's5.p2': 'Bildirim özelliğinin, projenin deposunda yer alan (<code>docs/PRIVACY-NOTIFICATIONS.md</code>) kendi ayrıntılı notu vardır; ne kadar süreyle ne saklandığına dair eksiksiz tabloyu içerir.',
+      's6.title': 'Yapmadıklarımız',
+      's6.i1': 'Kendimize ait herhangi bir sunucu veya veritabanı işletmiyoruz — bilgilerinin birikeceği bir yer yok.',
+      's6.i2': 'Üçüncü taraf analiz araçları, izleme pikselleri veya reklam SDK\'ları eklemiyoruz.',
+      's6.i3': 'Verileri kimseyle satmıyor, kiralamıyor veya paylaşmıyoruz.',
+      's6.i4': 'Kendi Skool oturumunla zaten erişimin olmayan toplulukları veya sayfaları okumuyoruz.',
+      's6.i5': 'Google Çeviri\'ye veya skool-finder.com\'a şifre, oturum çerezi veya token göndermiyoruz — bu istekler senin herhangi bir Skool kimliğini taşımaz.',
+      's6.i6': 'Sohbet mesajı içeriğini düz metin olarak saklamıyoruz; kopyalardan kaçınılması gereken yerlerde yalnızca bir hash saklanır.',
+      's7.title': 'Senin kontrollerin',
+      's7.i1': '<strong>Bir modülü kapat:</strong> her özellik, diğerlerini etkilemeden uzantının ayarlarından tek tek kapatılır.',
+      's7.i2': '<strong>Bildirimleri iptal et:</strong> ayarlardan "Tarayıcı Bildirimleri"ni kapat veya <span class="chip">notifications</span> iznini doğrudan tarayıcının uzantı ayarlarından kaldır.',
+      's7.i3': '<strong>Çeviri önbelleğini veya yer imlerini temizle:</strong> her özelliğin kendi ayarlarından kullanılabilir.',
+      's7.i4': '<strong>Her şeyi tek seferde sil:</strong> uzantıyı kaldırmak, sakladığı her şeyi otomatik olarak siler, çünkü hiçbir şey tarayıcının dışında yaşamaz.',
+      's8.title': 'Bu politikadaki değişiklikler',
+      's8.p1': 'Uzantının gönderdiği veya sakladığı şey değişirse, bu sayfa güncellenir ve başlıktaki "Geçerlilik tarihi" de buna göre değişir. Sessiz değişiklikler yoktur: gelecekteki bir sürüm bir yere yeni bir şey göndermeye başlarsa, bu, üretime geçmeden önce burada açıklanır.',
+      's9.title': 'İletişim',
+      's9.contact': 'Bu politika veya uzantının herhangi bir bölümünün nasıl çalıştığı hakkında sorular için — bize <strong><a href="mailto:reinkode@gmail.com">reinkode@gmail.com</a></strong> adresinden yazabilirsin.',
+      's9.cta': 'Ana sayfaya dön',
+      'footer.disclaimer1': 'Skool Master Suite, Skool.com ile bağlantılı değildir.',
+      'footer.disclaimer2': 'Bu belge, kodun yukarıda belirtilen sürüm itibarıyla gerçek davranışını açıklar.'
+    },
+    nl: {
+      'nav.home': 'Home', 'nav.features': 'Functies', 'nav.testimonials': 'Ervaringen', 'nav.faq': 'Veelgestelde vragen',
+      'doc.eyebrow': 'Privacybeleid',
+      'doc.subtitle': 'Wat deze extensie leest, verstuurt en opslaat — uitgelegd aan de hand van wat de code daadwerkelijk doet, niet een generieke juridische sjabloon.',
+      'doc.meta.version': 'Versie <b>0.0.1 (Beta)</b>',
+      'doc.meta.effective': 'Van kracht sinds <b>3 september 2026</b>',
+      'doc.meta.server': 'Eigen server: <b>geen</b>',
+      'toc.label': 'Op deze pagina',
+      'toc.s1': 'Korte samenvatting', 'toc.s2': 'Wat de extensie doet', 'toc.s3': 'Machtigingen', 'toc.s4': 'Wat je browser verlaat',
+      'toc.s5': 'Wat er op je apparaat wordt opgeslagen', 'toc.s6': 'Wat we niet doen', 'toc.s7': 'Jouw instellingen', 'toc.s8': 'Wijzigingen', 'toc.s9': 'Contact',
+      's1.title': 'Korte samenvatting',
+      's1.i1.title': 'Er is geen eigen server.',
+      's1.i1.desc': 'Alles draait in je browser. Niemand van dit project ziet je posts, reacties of berichten.',
+      's1.i2.title': 'Slechts twee externe bestemmingen.',
+      's1.i2.desc': 'De tekst die je vertaalt gaat naar de publieke API van Google Translate; de slug van een community gaat naar skool-finder.com. Verder verlaat niets je apparaat.',
+      's1.i3.title': 'Geen verkoop of overdracht van gegevens.',
+      's1.i3.desc': 'Geen analytics, geen adverteerders, geen gebruikersprofielen waar dan ook buiten je eigen browser.',
+      's1.i4.title': 'Alles is optioneel en omkeerbaar.',
+      's1.i4.desc': 'Elke functie kan afzonderlijk worden uitgeschakeld via de instellingen, en het verwijderen van de extensie wist alles wat ze heeft opgeslagen.',
+      's2.title': 'Wat de extensie doet',
+      's2.p1': 'Skool Master Suite voegt functies toe aan de <strong>skool.com</strong>-pagina\'s die je al open hebt staan: vertaling van posts en reacties, bladwijzers, herinneringen voor community-evenementen, browsermeldingen, donkere modus, leesbevestigingen in de chat, openbare communitystatistieken en nog een paar bewerkings- en organisatiehulpmiddelen. Elke functie is een onafhankelijke module die je kunt uitschakelen zonder de andere te beïnvloeden.',
+      's3.title': 'Aangevraagde machtigingen en waarom',
+      's3.p1': 'Het manifest van de extensie declareert het absolute minimum dat nodig is voor het bovenstaande. Niets wordt "voor de zekerheid" aangevraagd.',
+      's3.th1': 'Machtiging', 's3.th2': 'Type', 's3.th3': 'Waarvoor het wordt gebruikt',
+      'tag.required': 'Vereist', 'tag.optional': 'Optioneel',
+      's3.r1.desc': 'Je instellingen, bladwijzers en vertaalcache in deze browser opslaan.',
+      's3.r2.desc': 'Herinneringen voor community-evenementen inplannen. Manifest V3 biedt geen andere manier om iets minuten of uren later uit te voeren dat het afsluiten van de service worker overleeft.',
+      's3.r3.desc': 'Browsermeldingen tonen. Wordt niet gevraagd bij installatie — alleen wanneer je "Browsermeldingen" inschakelt in de instellingen, en als je weigert, wordt het niet opnieuw gevraagd tenzij je het zelf weer inschakelt.',
+      's3.r4.desc': 'De inhoud lezen van de Skool-pagina\'s die je als ingelogde gebruiker al open hebt staan, om de functies van de extensie erin te plaatsen.',
+      's3.r5.desc': 'De tekst die je wilt laten vertalen versturen naar het publieke eindpunt van Google Translate. Zie details hieronder.',
+      's3.r6.desc': 'De openbare ranglijst van een community opvragen. Zie details hieronder.',
+      's4.title': 'Wat je browser verlaat',
+      's4.p1': 'Slechts twee verzoeken gaan buiten skool.com, en beide zijn beperkt tot wat strikt noodzakelijk is voor de functie die ze activeert.',
+      's4.h3.translate': 'Vertaling — translate.googleapis.com',
+      's4.e1.p1': 'Dit is hetzelfde gratis, publieke eindpunt dat translate.google.com zelf gebruikt — zonder API-sleutel, zonder account, zonder bijgevoegde Skool-sessiecookies. Alleen het tekstfragment dat op dat moment wordt vertaald (een post, een reactie of wat je aan het typen bent) wordt verstuurd.',
+      's4.e1.p2': 'Voordat het wordt verstuurd, worden @vermeldingen en de communitynaam gemaskeerd zodat ze geen deel uitmaken van de vertaalde tekst. Omdat het een niet-officieel eindpunt is, kan Google het zonder waarschuwing beperken of wijzigen — als dat gebeurt, mislukt de vertaling gewoon en blijft de oorspronkelijke inhoud ongewijzigd.',
+      's4.h3.stats': 'Communitystatistieken — skool-finder.com',
+      's4.e2.p1': 'Een openbaar verzoek zonder authenticatie naar de community-identificatie die al zichtbaar is in de Skool-URL die je open hebt — hetzelfde wat elke bezoeker zou zien door rechtstreeks naar dat adres te gaan. Er worden geen cookies of accountgegevens verstuurd.',
+      's5.title': 'Wat er op je apparaat wordt opgeslagen',
+      's5.p1': 'Al het andere blijft in de eigen opslag van de extensie, in je browser. <span class="tag tag-local">local</span> betekent dat het dit apparaat nooit verlaat; <span class="tag tag-sync">sync</span> betekent dat je eigen Chrome- of Firefox-account het synchroniseert tussen je apparaten, precies zoals bij elke andere instelling — dit project heeft geen manier om die gegevens onderweg te lezen.',
+      's5.th1': 'Functie', 's5.th2': 'Wat het opslaat', 's5.th3': 'Bereik',
+      's5.r1.label': 'Algemene instellingen', 's5.r1.desc': 'Interfacetaal, ingeschakelde modules, grootte en weergave van de zijbalk.',
+      's5.r2.label': 'Vertaling', 's5.r2.desc': 'Talen die je uitsluit van vertaling, voorkeurstaal per community, en een cache van reeds gemaakte vertalingen — de originele tekst wordt opgeslagen als hash, nooit in platte tekst.',
+      's5.r3.label': 'Bladwijzers', 's5.r3.desc': 'De posts en reacties die je besluit op te slaan.',
+      's5.r4.label': 'Vastgezette communities', 's5.r4.desc': 'Hoe je je communities organiseert en groepeert in de zijbalk.',
+      's5.r5.label': 'Meldingen', 's5.r5.desc': 'Je voorkeuren per categorie, geplande herinneringen en al geziene id\'s zodat meldingen niet worden herhaald. Berichttekst wordt nooit opgeslagen — zie de <a href="#contacto">notitie over meldingen</a> hieronder.',
+      's5.r6.label': 'Leesstatus van posts en chat', 's5.r6.desc': 'Welke posts en berichten je al hebt gezien, zodat ze niet opnieuw als nieuw worden gemarkeerd.',
+      's5.r7.label': 'Donkere modus', 's5.r7.desc': 'Je voorkeur voor het visuele thema.',
+      's5.p2': 'De meldingsfunctie heeft een eigen gedetailleerde notitie, opgenomen in de repository van het project (<code>docs/PRIVACY-NOTIFICATIONS.md</code>), met de volledige tabel van wat wordt opgeslagen en voor hoe lang.',
+      's6.title': 'Wat we niet doen',
+      's6.i1': 'We beheren geen enkele eigen server of database — er is geen plek om je informatie te verzamelen.',
+      's6.i2': 'We voegen geen analytics van derden, trackingpixels of advertentie-SDK\'s toe.',
+      's6.i3': 'We verkopen, verhuren of delen geen gegevens met wie dan ook.',
+      's6.i4': 'We lezen geen communities of pagina\'s waartoe je nog geen toegang hebt met je eigen Skool-sessie.',
+      's6.i5': 'We sturen geen wachtwoorden, sessiecookies of tokens naar Google Translate of skool-finder.com — die verzoeken bevatten geen enkele Skool-identiteit van jou.',
+      's6.i6': 'We slaan de inhoud van je chatberichten niet op in platte tekst; waar duplicaten vermeden moeten worden, wordt alleen een hash opgeslagen.',
+      's7.title': 'Jouw instellingen',
+      's7.i1': '<strong>Een module uitschakelen:</strong> elke functie wordt afzonderlijk uitgeschakeld via de instellingen van de extensie, zonder de andere te beïnvloeden.',
+      's7.i2': '<strong>Meldingen intrekken:</strong> schakel "Browsermeldingen" uit in de instellingen, of verwijder de machtiging <span class="chip">notifications</span> rechtstreeks via de extensie-instellingen van je browser.',
+      's7.i3': '<strong>De vertaalcache of je bladwijzers wissen:</strong> beschikbaar via de eigen instellingen van elke functie.',
+      's7.i4': '<strong>Alles in één keer wissen:</strong> het verwijderen van de extensie wist automatisch alles wat ze heeft opgeslagen, omdat niets buiten je browser bestaat.',
+      's8.title': 'Wijzigingen in dit beleid',
+      's8.p1': 'Als wat de extensie verstuurt of opslaat verandert, wordt deze pagina bijgewerkt en verandert de datum "Van kracht sinds" in de kop mee. Er zijn geen stille wijzigingen: als een toekomstige versie iets nieuws ergens naartoe begint te sturen, wordt dat hier beschreven voordat het in productie gaat.',
+      's9.title': 'Contact',
+      's9.contact': 'Vragen over dit beleid of over hoe een bepaald onderdeel van de extensie werkt — schrijf ons op <strong><a href="mailto:reinkode@gmail.com">reinkode@gmail.com</a></strong>.',
+      's9.cta': 'Terug naar home',
+      'footer.disclaimer1': 'Skool Master Suite is niet aangesloten bij Skool.com.',
+      'footer.disclaimer2': 'Dit document beschrijft het daadwerkelijke gedrag van de code op de datum van de hierboven vermelde versie.'
+    },
+    ja: {
+      'nav.home': 'ホーム', 'nav.features': '機能', 'nav.testimonials': '導入事例', 'nav.faq': 'よくある質問',
+      'doc.eyebrow': 'プライバシーポリシー',
+      'doc.subtitle': 'この拡張機能が何を読み取り、送信し、保存するのか——一般的な法的テンプレートではなく、コードが実際に行っていることに基づいて説明します。',
+      'doc.meta.version': 'バージョン <b>0.0.1(ベータ版)</b>',
+      'doc.meta.effective': '<b>2026年9月3日</b>より有効',
+      'doc.meta.server': '自社サーバー:<b>なし</b>',
+      'toc.label': 'このページの内容',
+      'toc.s1': '概要', 'toc.s2': 'この拡張機能が行うこと', 'toc.s3': '権限', 'toc.s4': 'ブラウザから外部に送信されるもの',
+      'toc.s5': 'デバイスに保存されるもの', 'toc.s6': '私たちが行わないこと', 'toc.s7': 'あなたが行える管理操作', 'toc.s8': '変更について', 'toc.s9': 'お問い合わせ',
+      's1.title': '概要',
+      's1.i1.title': '独自のサーバーは存在しません。',
+      's1.i1.desc': 'すべての処理はあなたのブラウザ内で行われます。このプロジェクトの誰かがあなたの投稿・コメント・メッセージを見ることはありません。',
+      's1.i2.title': '外部への送信先はわずか2つだけです。',
+      's1.i2.desc': '翻訳するテキストはGoogle翻訳の公開APIへ、コミュニティのスラッグはskool-finder.comへ送信されます。それ以外にあなたのデバイスから出るものはありません。',
+      's1.i3.title': 'データの販売・譲渡は一切行いません。',
+      's1.i3.desc': 'あなた自身のブラウザの外では、分析ツールも、広告主も、ユーザープロファイルも一切存在しません。',
+      's1.i4.title': 'すべての機能は任意で、元に戻すことができます。',
+      's1.i4.desc': '各機能は設定から個別にオフにでき、拡張機能をアンインストールすれば保存されていたすべてのデータが削除されます。',
+      's2.title': 'この拡張機能が行うこと',
+      's2.p1': 'Skool Master Suiteは、すでに開いている<strong>skool.com</strong>のページに機能を追加します。投稿やコメントの翻訳、ブックマーク、コミュニティイベントのリマインダー、ブラウザ通知、ダークモード、チャットの既読確認、コミュニティの公開統計情報、その他いくつかの編集・整理機能などです。それぞれが独立したモジュールであり、他の機能に影響を与えることなく個別にオフにできます。',
+      's3.title': '要求する権限とその理由',
+      's3.p1': '拡張機能のマニフェストは、上記に必要な最小限の権限のみを宣言しています。「念のため」に要求するものは何もありません。',
+      's3.th1': '権限', 's3.th2': '種類', 's3.th3': '用途',
+      'tag.required': '必須', 'tag.optional': '任意',
+      's3.r1.desc': 'このブラウザ内に設定、ブックマーク、翻訳キャッシュを保存するため。',
+      's3.r2.desc': 'コミュニティイベントのリマインダーをスケジュールするため。Manifest V3には、サービスワーカーが終了した後も生き残る形で数分後や数時間後に何かを実行する他の方法がありません。',
+      's3.r3.desc': 'ブラウザ通知を表示するため。インストール時には要求されず、設定で「ブラウザ通知」を有効にしたときのみ要求されます。拒否した場合、あなた自身が再度有効にしない限り再度尋ねられることはありません。',
+      's3.r4.desc': 'ログイン済みユーザーとしてすでに開いているSkoolのページの内容を読み取り、そこに拡張機能の機能を挿入するため。',
+      's3.r5.desc': '翻訳を依頼したテキストをGoogle翻訳の公開エンドポイントに送信するため。詳細は下記を参照してください。',
+      's3.r6.desc': 'コミュニティの公開ランキングを取得するため。詳細は下記を参照してください。',
+      's4.title': 'ブラウザから外部に送信されるもの',
+      's4.p1': 'skool.com以外への通信はわずか2件のみで、どちらもそれをトリガーする機能に厳密に必要な範囲に限定されています。',
+      's4.h3.translate': '翻訳 — translate.googleapis.com',
+      's4.e1.p1': 'これはtranslate.google.com自体が使用しているのと同じ無料の公開エンドポイントであり、APIキーもアカウントも不要で、Skoolのセッションクッキーも一切添付されません。送信されるのは、その時点で翻訳中のテキストの断片(投稿、コメント、あるいは入力中の内容)のみです。',
+      's4.e1.p2': '送信前に、@メンションとコミュニティ名はマスクされ、翻訳対象のテキストに含まれないようにします。非公式のエンドポイントであるため、Googleは予告なく制限したり変更したりする可能性があります——その場合、翻訳は単に失敗し、元のコンテンツはそのまま保たれます。',
+      's4.h3.stats': 'コミュニティ統計 — skool-finder.com',
+      's4.e2.p1': '開いているSkoolのURLにすでに表示されているコミュニティ識別子への、認証不要の公開リクエストです——そのアドレスに直接アクセスした訪問者が見るものと同じです。クッキーやアカウントデータは一切送信されません。',
+      's5.title': 'デバイスに保存されるもの',
+      's5.p1': 'それ以外のすべては、あなたのブラウザ内にある拡張機能自身のストレージに保存されます。<span class="tag tag-local">local</span>はこのデバイスから決して外に出ないことを意味し、<span class="tag tag-sync">sync</span>は、他の設定と同様に、あなた自身のChromeまたはFirefoxアカウントがデバイス間で同期することを意味します——このプロジェクトには、転送中のそのデータを読み取る手段はありません。',
+      's5.th1': '機能', 's5.th2': '保存内容', 's5.th3': '範囲',
+      's5.r1.label': '一般設定', 's5.r1.desc': 'インターフェースの言語、有効なモジュール、サイドバーのサイズと表示。',
+      's5.r2.label': '翻訳', 's5.r2.desc': '翻訳から除外する言語、コミュニティごとの優先言語、そしてすでに行った翻訳のキャッシュ——元のテキストはハッシュとして保存され、平文で保存されることはありません。',
+      's5.r3.label': 'ブックマーク', 's5.r3.desc': 'あなたが保存を選んだ投稿とコメント。',
+      's5.r4.label': 'ピン留めしたコミュニティ', 's5.r4.desc': 'サイドバーでコミュニティをどのように整理・グループ化するか。',
+      's5.r5.label': '通知', 's5.r5.desc': 'カテゴリごとの設定、スケジュールされたリマインダー、通知を繰り返さないための既読ID。メッセージ本文が保存されることは一切ありません——詳しくは下記の<a href="#contacto">通知に関する注記</a>をご覧ください。',
+      's5.r6.label': '投稿・チャットの既読状態', 's5.r6.desc': 'どの投稿やメッセージをすでに見たか(再度「新着」として表示されないようにするため)。',
+      's5.r7.label': 'ダークモード', 's5.r7.desc': '見た目のテーマの設定。',
+      's5.p2': '通知機能には、プロジェクトのリポジトリに含まれる独自の詳細な注記(<code>docs/PRIVACY-NOTIFICATIONS.md</code>)があり、何がどれくらいの期間保存されるかの完全な一覧が記載されています。',
+      's6.title': '私たちが行わないこと',
+      's6.i1': '私たちは自社のサーバーやデータベースを一切運用していません——あなたの情報を蓄積する場所自体が存在しません。',
+      's6.i2': 'サードパーティの分析ツール、トラッキングピクセル、広告SDKは一切組み込んでいません。',
+      's6.i3': 'データを誰にも販売・貸与・共有することはありません。',
+      's6.i4': 'あなた自身のSkoolセッションでまだアクセス権のないコミュニティやページを読み取ることはありません。',
+      's6.i5': 'パスワード、セッションクッキー、トークンをGoogle翻訳やskool-finder.comに送信することはありません——これらのリクエストにはあなたのSkoolに関する識別情報は一切含まれません。',
+      's6.i6': 'チャットメッセージの内容を平文で保存することはありません。重複を避ける必要がある場合でも、保存されるのはハッシュのみです。',
+      's7.title': 'あなたが行える管理操作',
+      's7.i1': '<strong>モジュールをオフにする:</strong>各機能は拡張機能の設定から個別にオフにでき、他の機能には影響しません。',
+      's7.i2': '<strong>通知を取り消す:</strong>設定で「ブラウザ通知」をオフにするか、ブラウザの拡張機能設定から<span class="chip">notifications</span>権限を直接削除してください。',
+      's7.i3': '<strong>翻訳キャッシュやブックマークを削除する:</strong>各機能自体の設定から削除できます。',
+      's7.i4': '<strong>すべてを一度に削除する:</strong>拡張機能をアンインストールすると、保存されていたすべてのデータが自動的に削除されます。ブラウザの外には何も存在しないためです。',
+      's8.title': 'このポリシーの変更について',
+      's8.p1': '拡張機能が送信・保存する内容が変更された場合、このページ自体が更新され、ヘッダーの「有効日」もそれに合わせて変わります。密かな変更は一切ありません。将来のバージョンでどこかに新たに何かを送信するようになる場合、本番環境に反映される前に必ずここで説明します。',
+      's9.title': 'お問い合わせ',
+      's9.contact': 'このポリシーや拡張機能の一部の動作についてご質問がある場合は、<strong><a href="mailto:reinkode@gmail.com">reinkode@gmail.com</a></strong>までご連絡ください。',
+      's9.cta': 'ホームに戻る',
+      'footer.disclaimer1': 'Skool Master SuiteはSkool.comと提携関係にはありません。',
+      'footer.disclaimer2': '本書は、上記に記載のバージョン時点における実際のコードの挙動を説明したものです。'
+    }
+  };
+
+  SiteChrome.init(PRIVACY_I18N);
+})();
+</script>
+
+<script>
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a'));
+    var sections = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+    var offsets = [];
+    var ticking = false;
+
+    function measure() {
+      offsets = sections.map(function (s) { return s ? s.offsetTop : 0; });
+    }
+
+    function updateActive() {
+      var pos = window.scrollY + 140;
+      var activeIdx = 0;
+      for (var i = 0; i < offsets.length; i++) {
+        if (offsets[i] <= pos) activeIdx = i;
+      }
+      links.forEach(function (a, i) { a.classList.toggle('active', i === activeIdx); });
+      ticking = false;
+    }
+
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(updateActive);
+    }
+
+    document.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', measure, { passive: true });
+    requestAnimationFrame(function () { measure(); updateActive(); });
+  })();
+</script>
+
+</body>
+</html>
